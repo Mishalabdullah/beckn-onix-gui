@@ -15,10 +15,6 @@ const ubuntuMono = Ubuntu_Mono({
 
 export default function Home() {
     let pathname = usePathname();
-    const goBack = () => {
-        window.history.back();
-    };
-
     return (
         <>
             <main className={ubuntuMono.className}>
@@ -32,7 +28,7 @@ export default function Home() {
                         <InputField label={"Network configuration URL"} />
 
                         <div className={styles.buttonsContainer}>
-                            <SecondaryButton text={"Cancel"} onClick={goBack} />
+                            <SecondaryButton text={"Cancel"} />
                             <PrimaryButton text={"Continue"} />
                         </div>
                     </div>
