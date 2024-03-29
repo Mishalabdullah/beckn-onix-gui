@@ -1,4 +1,4 @@
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
 
 const ubuntuMono = Ubuntu_Mono({
@@ -12,24 +12,26 @@ export default function Home() {
         <>
             <main className={ubuntuMono.className}>
                 <div className={styles.mainContainer}>
-                    <p className={styles.mainHeading}>ONIX</p>
+                    
                     <p className={styles.mainText}>
-                        Open Network In A Box, is a project designed to
-                        effortlessly set up and maintain Beckn network that is
-                        scalable, secure and easy to maintain.
+                        Create a Production Network
                     </p>
                     <div className={styles.boxesContainer}>
                         <div className={styles.box}>
                             <img src="/arrow.png" />
-                            <p className={styles.boxText}>
-                                Join an existing network
-                            </p>
+                            <p className={styles.boxText}>Gateway</p>
                         </div>
                         <div className={styles.box}>
                             <img src="/arrow.png" />
-                            <p className={styles.boxText}>
-                                Create new production network
-                            </p>
+                            <p className={styles.boxText}>BAP</p>
+                        </div>
+                        <div className={styles.box}>
+                            <img src="/arrow.png" />
+                            <p className={styles.boxText}>BPP</p>
+                        </div>
+                        <div className={styles.box}>
+                            <img src="/arrow.png" />
+                            <p className={styles.boxText}>Registry</p>
                         </div>
                     </div>
                 </div>
