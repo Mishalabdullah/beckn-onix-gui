@@ -2,6 +2,7 @@ import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import styles from "../../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
+import InputField from "@/components/InputField/InputField";
 
 const ubuntuMono = Ubuntu_Mono({
     weight: "400",
