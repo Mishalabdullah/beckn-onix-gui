@@ -14,12 +14,7 @@ export default function Home() {
                 <div className={styles.mainContainer}>
                     <p className={styles.mainText}>Registry</p>
                     <div className={styles.formContainer}>
-                        <div className={styles.inputContainer}>
-                            <label className={styles.inputLabel}>
-                                Public Registry URL
-                            </label>
-                            <input className={styles.inputField} type="text" />
-                        </div>
+                        <InputField label={"Public Registry URL"} />
 
                         <div className={styles.buttonsContainer}>
                             <button className={styles.cancelButton}>

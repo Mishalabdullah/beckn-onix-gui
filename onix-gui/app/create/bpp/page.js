@@ -1,3 +1,4 @@
+import InputField from "@/components/InputField/InputField";
 import styles from "../../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
 
@@ -14,31 +15,10 @@ export default function Home() {
                 <div className={styles.mainContainer}>
                     <p className={styles.mainText}>BAP</p>
                     <div className={styles.formContainer}>
-                        <div className={styles.inputContainer}>
-                            <label className={styles.inputLabel}>
-                                Subscriber ID
-                            </label>
-                            <input className={styles.inputField} type="text" />
-                        </div>
-                        <div className={styles.inputContainer}>
-                            <label className={styles.inputLabel}>
-                                Subscriber URL
-                            </label>
-                            <input className={styles.inputField} type="text" />
-                        </div>
-                        <div className={styles.inputContainer}>
-                            <label className={styles.inputLabel}>
-                                Registry URL
-                            </label>
-                            <input className={styles.inputField} type="text" />
-                        </div>
-
-                        <div className={styles.inputContainer}>
-                            <label className={styles.inputLabel}>
-                                Network configuration URL
-                            </label>
-                            <input className={styles.inputField} type="text" />
-                        </div>
+                        <InputField label={"Subscriber ID"} />
+                        <InputField label={"Subscriber URL"} />
+                        <InputField label={"Registry URL"} />
+                        <InputField label={"Network configuration URL"} />
 
                         <div className={styles.buttonsContainer}>
                             <button className={styles.cancelButton}>
@@ -55,4 +35,3 @@ export default function Home() {
         </>
     );
 }
- 
