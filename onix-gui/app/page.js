@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
 
@@ -19,18 +20,28 @@ export default function Home() {
                         scalable, secure and easy to maintain.
                     </p>
                     <div className={styles.boxesContainer}>
-                        <div className={styles.box}>
-                            <img src="/arrow.png" />
-                            <p className={styles.boxText}>
-                                Join an existing network
-                            </p>
-                        </div>
-                        <div className={styles.box}>
-                            <img src="/arrow.png" />
-                            <p className={styles.boxText}>
-                                Create new production network
-                            </p>
-                        </div>
+                        <Link
+                            href="/join"
+                            style={{ textDecoration: "none", color: "white" }}
+                        >
+                            <div className={styles.box}>
+                                <img src="/arrow.png" />
+                                <p className={styles.boxText}>
+                                    Join an existing network
+                                </p>
+                            </div>
+                        </Link>
+                        <Link
+                            href="/create"
+                            style={{ textDecoration: "none", color: "white" }}
+                        >
+                            <div className={styles.box}>
+                                <img src="/arrow.png" />
+                                <p className={styles.boxText}>
+                                    Create new production network
+                                </p>
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </main>

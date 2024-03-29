@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
 
@@ -16,22 +17,30 @@ export default function Home() {
                         Create a Production Network
                     </p>
                     <div className={styles.boxesContainer}>
-                        <div className={styles.box}>
-                            <img src="/arrow.png" />
-                            <p className={styles.boxText}>Gateway</p>
-                        </div>
-                        <div className={styles.box}>
-                            <img src="/arrow.png" />
-                            <p className={styles.boxText}>BAP</p>
-                        </div>
-                        <div className={styles.box}>
-                            <img src="/arrow.png" />
-                            <p className={styles.boxText}>BPP</p>
-                        </div>
-                        <div className={styles.box}>
-                            <img src="/arrow.png" />
-                            <p className={styles.boxText}>Registry</p>
-                        </div>
+                        <Link href="/create/gateway" style={{ textDecoration: "none", color: "white" }} >
+                            <div className={styles.box}>
+                                <img src="/arrow.png" />
+                                <p className={styles.boxText}>Gateway</p>
+                            </div>
+                        </Link>
+                        <Link href="/create/bap">
+                            <div className={styles.box} style={{ textDecoration: "none", color: "white" }}>
+                                <img src="/arrow.png" />
+                                <p className={styles.boxText}>BAP</p>
+                            </div>
+                        </Link>
+                        <Link href="/create/bpp">
+                            <div className={styles.box} style={{ textDecoration: "none", color: "white" }}>
+                                <img src="/arrow.png" />
+                                <p className={styles.boxText}>BPP</p>
+                            </div>
+                        </Link>
+                        <Link href="/create/registry" style={{ textDecoration: "none", color: "white" }}>
+                            <div className={styles.box}>
+                                <img src="/arrow.png" />
+                                <p className={styles.boxText}>Registry</p>
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </main>
