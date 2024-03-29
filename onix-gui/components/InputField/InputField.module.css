@@ -12,10 +12,12 @@
 
 .inputField {
     padding: 1rem;
-    font-family: "Ubuntu", sans-serif;
+    font-family: "Ubuntu Mono", sans-serif;
     color: white;
     font-size: 1rem;
     border-radius: 15px;
     border: 1px solid rgb(61, 61, 61);
     background: #000000;
+
+    min-width:15rem
 }

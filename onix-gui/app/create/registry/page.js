@@ -1,5 +1,7 @@
+import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import styles from "../../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
+import PrimaryButton from "@/components/Buttons/PrimaryButton";
 
 const ubuntuMono = Ubuntu_Mono({
     weight: "400",
@@ -17,13 +19,8 @@ export default function Home() {
                         <InputField label={"Public Registry URL"} />
 
                         <div className={styles.buttonsContainer}>
-                            <button className={styles.cancelButton}>
-                                Cancel
-                            </button>
-
-                            <button className={styles.submitButton}>
-                                Continue
-                            </button>
+                            <SecondaryButton text={"Cancel"} />
+                            <PrimaryButton text={"Continue"} />
                         </div>
                     </div>
                 </div>

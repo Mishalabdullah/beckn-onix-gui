@@ -12,7 +12,6 @@ export default function Home() {
         <>
             <main className={ubuntuMono.className}>
                 <div className={styles.mainContainer}>
-                    
                     <p className={styles.mainText}>
                         Create a Production Network
                     </p>
