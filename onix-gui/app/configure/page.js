@@ -16,7 +16,7 @@ export default function Home() {
           <p className={styles.mainText}>Configure Existing Network</p>
           <div className={styles.boxesContainer}>
             <Link
-              href="/configure/gateway"
+              href="/setup/gateway"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>
@@ -25,7 +25,7 @@ export default function Home() {
               </div>
             </Link>
             <Link
-              href="/configure/bap"
+              href="/setup/bap"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>
@@ -34,7 +34,7 @@ export default function Home() {
               </div>
             </Link>
             <Link
-              href="/configure/bpp"
+              href="/setup/bpp"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>

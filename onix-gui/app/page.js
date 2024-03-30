@@ -21,50 +21,24 @@ export default function Home() {
           </p>
           <div className={styles.boxesContainer}>
             <Link
-              href="/join"
+              href="/install"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>
                 <img src="/arrow.png" />
-                <p className={styles.boxText}>Join an existing network</p>
+                <p className={styles.boxText}>Installation Wizard</p>
               </div>
             </Link>
-            <Link
-              href="/create"
-              style={{ textDecoration: "none", color: "white" }}
-            >
+            <Link href="/" style={{ textDecoration: "none", color: "white" }}>
               <div className={styles.box}>
                 <img src="/arrow.png" />
-                <p className={styles.boxText}>Create new production network</p>
+                <p className={styles.boxText}>Network Monitor</p>
               </div>
             </Link>
-            <Link
-              href="/local"
-              style={{ textDecoration: "none", color: "white" }}
-            >
+            <Link href="/" style={{ textDecoration: "none", color: "white" }}>
               <div className={styles.box}>
                 <img src="/arrow.png" />
-                <p className={styles.boxText}>
-                  Set up a network on your local machine
-                </p>
-              </div>
-            </Link>
-            <Link
-              href="/merge"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              <div className={styles.box}>
-                <img src="/arrow.png" />
-                <p className={styles.boxText}>Merge multiple networks</p>
-              </div>
-            </Link>
-            <Link
-              href="/configure"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              <div className={styles.box}>
-                <img src="/arrow.png" />
-                <p className={styles.boxText}>Configure Existing Network</p>
+                <p className={styles.boxText}>Network Configuration Creator</p>
               </div>
             </Link>
           </div>

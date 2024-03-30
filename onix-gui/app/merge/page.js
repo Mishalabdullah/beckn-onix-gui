@@ -13,12 +13,10 @@ export default function Home() {
     <>
       <main className={ubuntuMono.className}>
         <div className={styles.mainContainer}>
-          <p className={styles.mainText}>
-          Merge multiple networks
-          </p>
+          <p className={styles.mainText}>Merge multiple networks</p>
           <div className={styles.boxesContainer}>
             <Link
-              href="/merge/gateway"
+              href="/setup/gateway"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>
@@ -27,7 +25,7 @@ export default function Home() {
               </div>
             </Link>
             <Link
-              href="/merge/bap"
+              href="/setup/bap"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>
@@ -36,7 +34,7 @@ export default function Home() {
               </div>
             </Link>
             <Link
-              href="/merge/bpp"
+              href="/setup/bpp"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>

@@ -18,7 +18,7 @@ export default function Home() {
           </p>
           <div className={styles.boxesContainer}>
             <Link
-              href="/local/gateway"
+              href="/setup/gateway"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>
@@ -27,7 +27,7 @@ export default function Home() {
               </div>
             </Link>
             <Link
-              href="/local/bap"
+              href="/setup/bap"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>
@@ -36,7 +36,7 @@ export default function Home() {
               </div>
             </Link>
             <Link
-              href="/local/bpp"
+              href="/setup/bpp"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>
