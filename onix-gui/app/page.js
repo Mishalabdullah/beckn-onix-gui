@@ -29,7 +29,10 @@ export default function Home() {
                 <p className={styles.boxText}>Installation Wizard</p>
               </div>
             </Link>
-            <Link href="/" style={{ textDecoration: "none", color: "white" }}>
+            <Link
+              href="/monitor"
+              style={{ textDecoration: "none", color: "white" }}
+            >
               <div className={styles.box}>
                 <img src="/arrow.png" />
                 <p className={styles.boxText}>Network Monitor</p>
