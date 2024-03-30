@@ -1,5 +1,5 @@
 import { spawn } from "child_process";
-import { NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
 export async function GET(req, res) {
   return new Promise((resolve, reject) => {
@@ -19,11 +19,11 @@ export async function GET(req, res) {
     gitProcess.on("close", (code) => {
       if (code === 0) {
         console.log("Repository cloned successfully");
-        res.status(200).json({ success: true });
+        NextResponse.status(200).json({ success: true });
         resolve();
       } else {
         console.error(`git process exited with code ${code}`);
-        res.status(500).json({ success: false });
+        NextResponse.status(500).json({ success: false });
         reject();
       }
     });
