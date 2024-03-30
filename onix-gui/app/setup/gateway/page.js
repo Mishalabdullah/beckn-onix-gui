@@ -6,33 +6,48 @@ import { Ubuntu_Mono } from "next/font/google";
 import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import { usePathname } from "next/navigation";
+import { useCallback } from "react";
 
 const ubuntuMono = Ubuntu_Mono({
-    weight: "400",
-    style: "normal",
-    subsets: ["latin"],
+  weight: "400",
+  style: "normal",
+  subsets: ["latin"],
 });
 
 export default function Home() {
-    let pathname = usePathname();
-    return (
-        <>
-            <main className={ubuntuMono.className}>
-                <div className={styles.mainContainer}>
-                    <p className={styles.currentRoute}>ONIX{pathname}</p>
-                    <p className={styles.mainText}>Gateway</p>
-                    <div className={styles.formContainer}>
-                        <InputField label={"Publicly Accessible Gateway URL"} />
-                        <InputField label={"Registry URL"} />
-                        <InputField label={"Network Configuration URL"} />
+  let pathname = usePathname();
 
-                        <div className={styles.buttonsContainer}>
-                            <SecondaryButton text={"Cancel"} />
-                            <PrimaryButton text={"Continue"} />
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </>
-    );
+  const installGateway = useCallback(async () => {
+    try {
+      const response = await fetch("/api/installGateway");
+      if (response.ok) {
+        console.log("Repository cloned successfully");
+      } else {
+        console.error("Failed to clone repository");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  }, []);
+
+  return (
+    <>
+      <main className={ubuntuMono.className}>
+        <div className={styles.mainContainer}>
+          <p className={styles.currentRoute}>ONIX{pathname}</p>
+          <p className={styles.mainText}>Gateway</p>
+          <div className={styles.formContainer}>
+            <InputField label={"Publicly Accessible Gateway URL"} />
+            <InputField label={"Registry URL"} />
+            <InputField label={"Network Configuration URL"} />
+
+            <div className={styles.buttonsContainer}>
+              <SecondaryButton text={"Cancel"} />
+              <PrimaryButton onClick={installGateway} text={"Continue"} />
+            </div>
+          </div>
+        </div>
+      </main>
+    </>
+  );
 }
