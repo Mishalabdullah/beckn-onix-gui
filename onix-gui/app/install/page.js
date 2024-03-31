@@ -21,7 +21,7 @@ export default function Home() {
           </p>
           <div className={styles.boxesContainer}>
             <Link
-              href="/join"
+              href="/install/join"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>
@@ -30,7 +30,7 @@ export default function Home() {
               </div>
             </Link>
             <Link
-              href="/create"
+              href="/install/create"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>
@@ -39,7 +39,7 @@ export default function Home() {
               </div>
             </Link>
             <Link
-              href="/local"
+              href="/install/local"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>
@@ -50,7 +50,7 @@ export default function Home() {
               </div>
             </Link>
             <Link
-              href="/merge"
+              href="/install/merge"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>
@@ -59,7 +59,7 @@ export default function Home() {
               </div>
             </Link>
             <Link
-              href="/configure"
+              href="/install/configure"
               style={{ textDecoration: "none", color: "white" }}
             >
               <div className={styles.box}>

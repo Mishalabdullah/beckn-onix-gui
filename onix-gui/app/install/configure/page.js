@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "../page.module.css";
+import styles from "../../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
 
 const ubuntuMono = Ubuntu_Mono({
@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <main className={ubuntuMono.className}>
         <div className={styles.mainContainer}>
-          <p className={styles.mainText}>Merge multiple networks</p>
+          <p className={styles.mainText}>Configure Existing Network</p>
           <div className={styles.boxesContainer}>
             <Link
               href="/setup/gateway"

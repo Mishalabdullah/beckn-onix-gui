@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "../page.module.css";
+import styles from "../../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
 
 const ubuntuMono = Ubuntu_Mono({
