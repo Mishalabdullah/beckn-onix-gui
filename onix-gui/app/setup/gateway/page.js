@@ -19,7 +19,8 @@ export default function Home() {
 
   const installGateway = useCallback(async () => {
     try {
-      const response = await fetch("/api/installGateway");
+      // This response var is calling the API endpoint that clones the repository
+      const response = await fetch("/api/clonning-repo");
       if (response.ok) {
         console.log("Repository cloned successfully");
       } else {
