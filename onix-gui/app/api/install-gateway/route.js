@@ -1,30 +1,33 @@
 import { spawn } from "child_process";
 import { NextResponse } from "next/server";
 
-export async function GET(req, res) {
+export async function GET(req) {
+  console.log("Cloning GitHub repository...");
+  const repoUrl = "https://github.com/beckn/beckn-onix";
+  const destination = "/tmp/beckn-onix";
+  const gitProcess = spawn("git", ["clone", repoUrl, destination]);
+
+  gitProcess.stdout.on("data", (data) => {
+    console.log(`stdout: ${data}`);
+  });
+
+  gitProcess.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
   return new Promise((resolve, reject) => {
-    console.log("Cloning GitHub repository...");
-    const repoUrl = "https://github.com/beckn/beckn-onix";
-    const destination = "/tmp/beckn-onix";
-    const gitProcess = spawn("git", ["clone", repoUrl, destination]);
-
-    gitProcess.stdout.on("data", (data) => {
-      console.log(`stdout: ${data}`);
-    });
-
-    gitProcess.stderr.on("data", (data) => {
-      console.error(`stderr: ${data}`);
-    });
-
     gitProcess.on("close", (code) => {
       if (code === 0) {
         console.log("Repository cloned successfully");
-        NextResponse.status(200).json({ success: true });
-        resolve();
+        resolve(
+          NextResponse.json(
+            { success: true, data: "Repo Cloned Successfully" },
+            { status: 200 }
+          )
+        );
       } else {
         console.error(`git process exited with code ${code}`);
-        NextResponse.status(500).json({ success: false });
-        reject();
+        resolve(NextResponse.json({ success: false }, { status: 500 }));
       }
     });
   });
