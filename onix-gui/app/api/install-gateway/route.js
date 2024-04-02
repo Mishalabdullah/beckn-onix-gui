@@ -11,38 +11,48 @@ export async function GET(request) {
 
     let currentOutput = "";
     let currentError = "";
+    // let logs = "";
 
     beckn_onix.stdout.on("data", (data) => {
       currentOutput += data;
-      console.log("script started");
+      // console.log("script started");
       if (currentOutput.includes("What would you like to do?")) {
         beckn_onix.stdin.write(`1 \n`);
-        console.log("what you like to do", currentOutput);
+        console.log("console.log of output \n", currentOutput);
+        currentOutput = "";
       } else if (
         currentOutput.includes("Which platform would you like to set up?")
       ) {
         beckn_onix.stdin.write(`1 \n`);
-        console.log("which platform", currentOutput);
+        console.log("console.log of output \n", currentOutput);
         currentOutput = "";
       } else if (
         currentOutput.includes(
-          "Paste the URL of the network configuration here (or press Enter to skip):"
+          "Please provide the network-specific configuration URL."
         )
       ) {
-        console.log(currentOutput, "network config");
-        beckn_onix.stdin.write(``);
-        console.log("network config");
-        currentOutput = "";
-      } else if (currentOutput.includes("Enter your registry URL: ")) {
-        console.log("step 3");
+        // console.log(currentOutput, "network config");
         beckn_onix.stdin.write(`\n`);
         currentOutput = "";
       } else if (
-        currentOutput.includes("Enter publicly accessible gateway URL:")
+        currentOutput.includes(
+          "No network configuration URL provided, proceeding without it."
+        )
       ) {
-        console.log("step 4");
+        console.log("step 3");
+        beckn_onix.stdin.write(`\n`);
+        // console.log("console.log of output \n", currentOutput);
+        currentOutput = "";
+      } else if (currentOutput.includes("setting up registry")) {
+        console.log("step 4", currentOutput);
         beckn_onix.stdin.write(`\n`);
         currentOutput = "";
+      } else if (currentOutput.includes("Registry URL not found:")) {
+        console.log("step 5", currentOutput);
+        beckn_onix.stdin.write(`\n`);
+        currentOutput = "";
+      } else {
+        console.log("Registry URL not found:", currentOutput);
       }
     });
 
