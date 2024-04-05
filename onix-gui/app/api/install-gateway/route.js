@@ -1,75 +1,51 @@
-// import { spawn } from "child_process";
-// import { NextResponse } from "next/server";
+import { exec } from "child_process";
+import { NextResponse } from "next/server";
 
-// export async function GET(request) {
-//   return new Promise((resolve, reject) => {
-//     const beckn_onix = spawn("sudo", [
-//       "bash",
-//       "/tmp/beckn-onix/install/beckn-onix.sh",
-//     ]);
-//     beckn_onix.stdout.setEncoding("utf8");
+export async function GET(req, res) {
+  const runtimeArgs = ""; // Assuming you have runtimeArgs defined elsewhere
 
-//     let currentOutput = "";
-//     let currentError = "";
+  const executeCommand = (command) => {
+    return new Promise((resolve, reject) => {
+      exec(command, (error, stdout, stderr) => {
+        if (error) {
+          console.error("Error:", error);
+          reject(error);
+          return;
+        }
+        const output = stdout + stderr;
+        console.log("Output:", output);
+        resolve(output);
+      });
+    });
+  };
 
-//     beckn_onix.stdout.on("data", (data) => {
-//       currentOutput += data;
-//       if (currentOutput.includes("What would you like to do?")) {
-//         beckn_onix.stdin.write(`1 \n`);
-//         // console.log("console.log of output \n", currentOutput);
-//         currentOutput = "";
-//       } else if (
-//         currentOutput.includes("Which platform would you like to set up?")
-//       ) {
-//         beckn_onix.stdin.write(`1 \n`);
-//         // console.log("console.log of output \n", currentOutput);
-//         currentOutput = "";
-//       } else if (
-//         currentOutput.includes(
-//           "Please provide the network-specific configuration URL."
-//         )
-//       ) {
-//         beckn_onix.stdin.write(`\n`);
-//         currentOutput = "";
-//       } else if (
-//         currentOutput.includes(
-//           "No network configuration URL provided, proceeding without it."
-//         )
-//       ) {
-//         console.log("step 3");
-//         beckn_onix.stdin.write(`\n`);
-//         currentOutput = "";
-//         console.log("console.log of output \n", currentOutput);
-//       } else if (currentOutput.includes("setting up registry")) {
-//         console.log("step 4", currentOutput);
-//         beckn_onix.stdin.write(`\n`);
-//         // currentOutput = "";
-//       } else if (currentOutput.includes("setting up gateway")) {
-//         console.log("step 5", currentOutput);
-//         beckn_onix.stdin.write(`\n`);
-//         console.log("step 5 completed", currentOutput);
-//         currentOutput = "";
-//         console.log("step 6", currentOutput);
-//       } else {
-//         console.log(currentOutput);
-//       }
-//     });
+  try {
+    const result1 = await executeCommand(
+      `bash /tmp/beckn-onix/install/scripts/package_manager.sh ${runtimeArgs}`
+    );
+    console.log("Result 1:", result1);
 
-//     beckn_onix.stderr.on("data", (data) => {
-//       currentError += data;
-//     });
+    const result2 = await executeCommand(
+      `sudo bash /tmp/beckn-onix/install/scripts/update_gateway_details.sh ${"https://registry.mishalabdullah.xyz"} ${"https://gateway.mishalabdullah.xyz"}`
+    );
+    console.log("Result 2:", result2);
 
-//     beckn_onix.on("close", (code) => {
-//       if (code === 0) {
-//         resolve(NextResponse.json({ success: true, output: currentOutput }));
-//       } else {
-//         reject(
-//           NextResponse.json(
-//             { success: false, error: currentError },
-//             { status: 500 }
-//           )
-//         );
-//       }
-//     });
-//   });
-// }
+    const result3 = await executeCommand(
+      `docker-compose -f /tmp/beckn-onix/install/docker-compose-v2.yml up -d gateway`
+    );
+    console.log("Result 3:", result3);
+
+    const result4 = await executeCommand(`sleep 10`);
+    console.log("Result 4:", result4);
+
+    const result5 = await executeCommand(
+      `bash /tmp/beckn-onix/install/scripts/register_gateway.sh ${"https://gateway.mishalabdullah.xyz"}`
+    );
+    console.log("Result 5:", result5);
+
+    return NextResponse.json({ result1, result2, result3, result4, result5 });
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return NextResponse.json({ error: "An error occurred" }, { status: 500 });
+  }
+}
