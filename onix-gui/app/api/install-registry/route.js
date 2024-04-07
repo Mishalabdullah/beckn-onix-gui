@@ -3,9 +3,48 @@ import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
+import os from "os";
+
+async function directoryExists(path) {
+  try {
+    await fs.access(path);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
 
 export async function POST(req, res) {
-  const data = req.json();
+  const pathDir = join(os.homedir(), "beckn-onix");
+  const becknOnixDirExists = await directoryExists(pathDir);
+  console.log("Installing Beckn Onix...", becknOnixDirExists);
+
+  if (!becknOnixDirExists) {
+    console.log(`Directory beckn-onix does not exist. Cloning repository...`);
+    try {
+      const response = await fetch(`${req.nextUrl.origin}/api/clonning-repo`);
+      if (!response.ok) {
+        console.error(
+          `Failed to clone repository: ${response.status} ${response.statusText}`
+        );
+        return NextResponse.json(
+          {
+            error: `Failed to clone repository: ${response.status} ${response.statusText}`,
+          },
+          { status: 500 }
+        );
+      }
+      console.log("Repository cloned successfully.");
+    } catch (error) {
+      console.error("An error occurred while cloning the repository:", error);
+      return NextResponse.json(
+        { error: "An error occurred while cloning the repository" },
+        { status: 500 }
+      );
+    }
+  }
+
+  const data = await req.json();
   const executeCommand = (command) => {
     return new Promise((resolve, reject) => {
       exec(command, (error, stdout, stderr) => {
@@ -43,15 +82,27 @@ export async function POST(req, res) {
 
     console.log("Registry URL:", registryUrl);
 
-    const configFile =
-      "/tmp/beckn-onix/install/registry_data/config/swf.properties";
-    const sampleFile =
-      "/tmp/beckn-onix/install/registry_data/config/swf.properties-sample";
+    const configFile = join(
+      pathDir,
+      "install",
+      "registry_data",
+      "config",
+      "swf.properties"
+    );
+    const sampleFile = join(
+      pathDir,
+      "install",
+      "registry_data",
+      "config",
+      "swf.properties-sample"
+    );
 
     try {
       await fs.copyFile(sampleFile, configFile);
+      const tempDir = join(os.homedir(), "beckn-onix", "tmp");
+      await fs.mkdir(tempDir, { recursive: true }); // Create the temporary directory if it doesn't exist
 
-      const tempFile = join(tmpdir(), "tempfile.XXXXXXXXXX");
+      const tempFile = join(tempDir, "tempfile.XXXXXXXXXX");
       const configData = await fs.readFile(configFile, "utf8");
       const updatedConfigData = configData
         .replace(/REGISTRY_URL/g, registryUrl)
@@ -61,7 +112,11 @@ export async function POST(req, res) {
       await fs.writeFile(tempFile, updatedConfigData);
       await fs.rename(tempFile, configFile);
       await executeCommand(
-        "docker-compose -f /tmp/beckn-onix/install/docker-compose-v2.yml up -d registry"
+        `docker-compose -f ${join(
+          pathDir,
+          "install",
+          "docker-compose-v2.yml"
+        )} up -d registry`
       );
 
       // Wait for 10 seconds
