@@ -42,14 +42,15 @@ export async function startSupportServices() {
   }
 }
 
-export async function GET(req, res) {
+export async function POST(req, res) {
   try {
     await startSupportServices();
-
-    const registryUrl = "https://registry.becknprotocol.io/subscribers";
-    const bppSubscriberId = "onix-bpp.becknprotocol.io";
-    const bppSubscriberUrl = "https://onix-bpp.becknprotocol.io";
-    const webhookUrl = "https://unified-bpp.becknprotocol.io/beckn-bpp-adapter";
+    const data = req.json();
+    const registryUrl = data.registryUrl;
+    const bppSubscriberId = data.subscriberId;
+    const bppSubscriberUrl = data.subscriberUrl;
+    const webhookUrl = data.webhookUrl;
+    // const webhookUrl = "https://unified-bpp.becknprotocol.io/beckn-bpp-adapter";
 
     // let updateBppConfigCommand = "bash scripts/update_bpp_config.sh";
     // if (registryUrl) {
