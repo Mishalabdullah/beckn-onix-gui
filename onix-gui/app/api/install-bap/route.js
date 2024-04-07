@@ -42,20 +42,21 @@ export async function startSupportServices() {
   }
 }
 
-export async function GET(req, res) {
+export async function POST(req, res) {
   try {
     await startSupportServices();
+    const data = req.json();
 
-    const registryUrl = "https://registry.becknprotocol.io/subscribers";
-    const bppSubscriberId = "onix-bpp.becknprotocol.io";
-    const bppSubscriberUrl = "https://onix-bpp.becknprotocol.io";
-    const webhookUrl = "https://unified-bpp.becknprotocol.io/beckn-bpp-adapter";
+    const registryUrl = data.registryUrl;
+    const bppSubscriberId = data.subscriberId;
+    const bppSubscriberUrl = data.subscriberUrl;
+    const networkconfigurl = data.networkconfigurl;
 
     // let updateBppConfigCommand = "bash scripts/update_bpp_config.sh";
     // if (registryUrl) {
     //   updateBppConfigCommand += ``;
     // }
-    let updateBppConfigCommand = `bash /tmp/beckn-onix/install/scripts/update_bap_config.sh  ${registryUrl} ${bppSubscriberId}  ${bppSubscriberUrl} ${webhookUrl}`;
+    let updateBppConfigCommand = `bash /tmp/beckn-onix/install/scripts/update_bap_config.sh  ${registryUrl} ${bppSubscriberId}  ${bppSubscriberUrl} ${networkconfigurl}`;
     const result1 = await executeCommand(updateBppConfigCommand);
     console.log("Result 1:", result1);
 
