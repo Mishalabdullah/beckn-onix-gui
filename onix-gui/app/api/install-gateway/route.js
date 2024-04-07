@@ -1,9 +1,8 @@
 import { exec } from "child_process";
 import { NextResponse } from "next/server";
 
-export async function GET(req, res) {
-  const runtimeArgs = ""; // Assuming you have runtimeArgs defined elsewhere
-
+export async function POST(req, res) {
+  const data = await req.json();
   const executeCommand = (command) => {
     return new Promise((resolve, reject) => {
       exec(command, (error, stdout, stderr) => {
@@ -21,12 +20,12 @@ export async function GET(req, res) {
 
   try {
     const result1 = await executeCommand(
-      `bash /tmp/beckn-onix/install/scripts/package_manager.sh ${runtimeArgs}`
+      `bash /tmp/beckn-onix/install/scripts/package_manager.sh`
     );
     console.log("Result 1:", result1);
 
     const result2 = await executeCommand(
-      `sudo bash /tmp/beckn-onix/install/scripts/update_gateway_details.sh ${"https://registry.mishalabdullah.xyz"} ${"https://gateway.mishalabdullah.xyz"}`
+      ` bash /tmp/beckn-onix/install/scripts/update_gateway_details.sh ${data.registryUrl} ${data.gatewayUrl}`
     );
     console.log("Result 2:", result2);
 
@@ -39,7 +38,7 @@ export async function GET(req, res) {
     console.log("Result 4:", result4);
 
     const result5 = await executeCommand(
-      `bash /tmp/beckn-onix/install/scripts/register_gateway.sh ${"https://gateway.mishalabdullah.xyz"}`
+      `bash /tmp/beckn-onix/install/scripts/register_gateway.sh ${data.gatewayUrl}`
     );
     console.log("Result 5:", result5);
 

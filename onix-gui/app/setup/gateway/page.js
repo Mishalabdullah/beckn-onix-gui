@@ -3,6 +3,7 @@
 import InputField from "@/components/InputField/InputField";
 import styles from "../../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
+import { useState } from "react";
 import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import { usePathname } from "next/navigation";
@@ -16,11 +17,40 @@ const ubuntuMono = Ubuntu_Mono({
 
 export default function Home() {
   let pathname = usePathname();
+  const [gatewayUrl, setGatewayUrl] = useState("");
+  const [registryUrl, setRegistryUrl] = useState("");
+  const [networkconfigurl, setNetworkconfigurl] = useState("");
+
+  const handleGatewayUrlChange = (event) => {
+    setGatewayUrl(event.target.value);
+  };
+  const handleRegistryUrlChange = (event) => {
+    setRegistryUrl(event.target.value);
+  };
+  const handleNetworkconfigurlChange = (event) => {
+    setNetworkconfigurl(event.target.value);
+  };
 
   const installGateway = useCallback(async () => {
     try {
-      // This response var is calling the API endpoint that clones the repository
-      const response = await fetch("/api/clonning-repo");
+      console.log(
+        "Sending fetch request with values:",
+        gatewayUrl,
+        registryUrl,
+        networkconfigurl
+      );
+
+      const response = await fetch("/api/install-gateway", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          gatewayUrl: gatewayUrl,
+          registryUrl: registryUrl,
+          networkconfigurl: networkconfigurl,
+        }),
+      });
       if (response.ok) {
         console.log("Repository cloned successfully");
       } else {
@@ -29,7 +59,7 @@ export default function Home() {
     } catch (error) {
       console.error("An error occurred:", error);
     }
-  }, []);
+  }, [gatewayUrl, registryUrl, networkconfigurl]); // Added dependencies to useCallback
 
   return (
     <>
@@ -38,9 +68,27 @@ export default function Home() {
           <p className={styles.currentRoute}>ONIX{pathname}</p>
           <p className={styles.mainText}>Gateway</p>
           <div className={styles.formContainer}>
-            <InputField label={"Publicly Accessible Gateway URL"} />
-            <InputField label={"Registry URL"} />
-            <InputField label={"Network Configuration URL"} />
+            {/* To do todo 
+          1. Create a check function so that the url formats are correct
+          2. Send response when installing and also erros that happen when an envet happens to the user
+          3. a gear dialog where the user's can specify to where the beckn repo to be cloned.
+           */}
+
+            <InputField
+              label={"Publicly Accessible Gateway URL"}
+              value={gatewayUrl}
+              onChange={handleGatewayUrlChange}
+            />
+            <InputField
+              label={"Registry URL"}
+              value={registryUrl}
+              onChange={handleRegistryUrlChange}
+            />
+            <InputField
+              label={"Network Configuration URL"}
+              value={networkconfigurl}
+              onChange={handleNetworkconfigurlChange}
+            />
 
             <div className={styles.buttonsContainer}>
               <SecondaryButton text={"Cancel"} />
