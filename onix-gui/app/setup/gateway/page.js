@@ -3,11 +3,10 @@
 import InputField from "@/components/InputField/InputField";
 import styles from "../../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import { usePathname } from "next/navigation";
-import { useCallback } from "react";
 
 const ubuntuMono = Ubuntu_Mono({
   weight: "400",

@@ -4,7 +4,8 @@ import { promises as fs } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
 
-export async function GET(req, res) {
+export async function POST(req, res) {
+  const data = req.json();
   const executeCommand = (command) => {
     return new Promise((resolve, reject) => {
       exec(command, (error, stdout, stderr) => {
@@ -74,7 +75,7 @@ export async function GET(req, res) {
   };
 
   try {
-    const url = "https://registry.mishalabdullah.xyz"; // Assuming you have the URL defined elsewhere
+    const url = data.registryUrl;
     await updateRegistryDetails(url);
     return NextResponse.json({
       message: "Registry details updated successfully",
