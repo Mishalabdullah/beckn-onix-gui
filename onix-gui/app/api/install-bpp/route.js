@@ -1,5 +1,18 @@
 import { exec } from "child_process";
 import { NextResponse } from "next/server";
+import { promises as fs } from "fs";
+import { join } from "path";
+import os from "os";
+
+const pathDir = join(os.homedir(), "beckn-onix");
+async function directoryExists(path) {
+  try {
+    await fs.access(path);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
 
 const executeCommand = (command) => {
   return new Promise((resolve, reject) => {
@@ -21,17 +34,17 @@ export async function startSupportServices() {
     process.env.COMPOSE_IGNORE_ORPHANS = "1";
 
     const result1 = await executeCommand(
-      "docker-compose -f /tmp/beckn-onix/install/docker-compose-app.yml up -d mongo_db"
+      `docker-compose -f ${pathDir}/install/docker-compose-app.yml up -d mongo_db`
     );
     console.log("Result 1:", result1);
 
     const result2 = await executeCommand(
-      "docker-compose -f /tmp/beckn-onix/install/docker-compose-app.yml up -d queue_service"
+      `docker-compose -f ${pathDir}/install/docker-compose-app.yml up -d queue_service`
     );
     console.log("Result 2:", result2);
 
     const result3 = await executeCommand(
-      "docker-compose -f /tmp/beckn-onix/install/docker-compose-app.yml up -d redis_db"
+      `docker-compose -f ${pathDir}/install/docker-compose-app.yml up -d redis_db`
     );
     console.log("Result 3:", result3);
 
@@ -43,6 +56,34 @@ export async function startSupportServices() {
 }
 
 export async function POST(req, res) {
+  const becknOnixDirExists = await directoryExists(pathDir);
+  console.log("Installing Beckn Onix...", becknOnixDirExists);
+
+  if (!becknOnixDirExists) {
+    console.log(`Directory beckn-onix does not exist. Cloning repository...`);
+    try {
+      const response = await fetch(`${req.nextUrl.origin}/api/clonning-repo`);
+      if (!response.ok) {
+        console.error(
+          `Failed to clone repository: ${response.status} ${response.statusText}`
+        );
+        return NextResponse.json(
+          {
+            error: `Failed to clone repository: ${response.status} ${response.statusText}`,
+          },
+          { status: 500 }
+        );
+      }
+      console.log("Repository cloned successfully.");
+    } catch (error) {
+      console.error("An error occurred while cloning the repository:", error);
+      return NextResponse.json(
+        { error: "An error occurred while cloning the repository" },
+        { status: 500 }
+      );
+    }
+  }
+
   try {
     await startSupportServices();
     const data = req.json();
@@ -56,7 +97,7 @@ export async function POST(req, res) {
     // if (registryUrl) {
     //   updateBppConfigCommand += ``;
     // }
-    let updateBppConfigCommand = `bash /tmp/beckn-onix/install/scripts/update_bpp_config.sh  ${registryUrl} ${bppSubscriberId}  ${bppSubscriberUrl} ${webhookUrl}`;
+    let updateBppConfigCommand = `bash ${pathDir}/install/scripts/update_bpp_config.sh  ${registryUrl} ${bppSubscriberId}  ${bppSubscriberUrl} ${webhookUrl}`;
     const result1 = await executeCommand(updateBppConfigCommand);
     console.log("Result 1:", result1);
 
@@ -64,12 +105,12 @@ export async function POST(req, res) {
     console.log("Result 2:", result2);
 
     const result3 = await executeCommand(
-      ' docker-compose -f /tmp/beckn-onix/install/docker-compose-v2.yml up -d  "bpp-client"'
+      `docker-compose -f ${pathDir}/install/docker-compose-v2.yml up -d  bpp-client`
     );
     console.log("Result 3:", result3);
 
     const result4 = await executeCommand(
-      ' docker-compose -f /tmp/beckn-onix/install/docker-compose-v2.yml up -d $1 "bpp-network"'
+      `docker-compose -f ${pathDir}/install/docker-compose-v2.yml up -d  bpp-network`
     );
     console.log("Result 4:", result4);
 
