@@ -1,7 +1,48 @@
 import { exec } from "child_process";
 import { NextResponse } from "next/server";
+import { promises as fs } from "fs";
+import { join } from "path";
+import os from "os";
+
+async function directoryExists(path) {
+  try {
+    await fs.access(path);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
 
 export async function POST(req, res) {
+  const pathDir = join(os.homedir(), "beckn-onix");
+  const becknOnixDirExists = await directoryExists(pathDir);
+  console.log("Installing Beckn Onix...", becknOnixDirExists);
+
+  if (!becknOnixDirExists) {
+    console.log(`Directory beckn-onix does not exist. Cloning repository...`);
+    try {
+      const response = await fetch(`${req.nextUrl.origin}/api/clonning-repo`);
+      if (!response.ok) {
+        console.error(
+          `Failed to clone repository: ${response.status} ${response.statusText}`
+        );
+        return NextResponse.json(
+          {
+            error: `Failed to clone repository: ${response.status} ${response.statusText}`,
+          },
+          { status: 500 }
+        );
+      }
+      console.log("Repository cloned successfully.");
+    } catch (error) {
+      console.error("An error occurred while cloning the repository:", error);
+      return NextResponse.json(
+        { error: "An error occurred while cloning the repository" },
+        { status: 500 }
+      );
+    }
+  }
+
   const data = await req.json();
   const executeCommand = (command) => {
     return new Promise((resolve, reject) => {
@@ -20,17 +61,17 @@ export async function POST(req, res) {
 
   try {
     const result1 = await executeCommand(
-      `bash /tmp/beckn-onix/install/scripts/package_manager.sh`
+      `bash ${pathDir}/install/scripts/package_manager.sh`
     );
     console.log("Result 1:", result1);
 
     const result2 = await executeCommand(
-      ` bash /tmp/beckn-onix/install/scripts/update_gateway_details.sh ${data.registryUrl} ${data.gatewayUrl}`
+      ` bash ${pathDir}/install/scripts/update_gateway_details.sh ${data.registryUrl} ${data.gatewayUrl}`
     );
     console.log("Result 2:", result2);
 
     const result3 = await executeCommand(
-      `docker-compose -f /tmp/beckn-onix/install/docker-compose-v2.yml up -d gateway`
+      `docker-compose -f ${pathDir}/install/docker-compose-v2.yml up -d gateway`
     );
     console.log("Result 3:", result3);
 
@@ -38,7 +79,7 @@ export async function POST(req, res) {
     console.log("Result 4:", result4);
 
     const result5 = await executeCommand(
-      `bash /tmp/beckn-onix/install/scripts/register_gateway.sh ${data.gatewayUrl}`
+      `bash ${pathDir}/install/scripts/register_gateway.sh ${data.gatewayUrl}`
     );
     console.log("Result 5:", result5);
 
