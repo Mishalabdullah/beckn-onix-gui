@@ -5,6 +5,9 @@ import { Ubuntu_Mono } from "next/font/google";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import InputField from "@/components/InputField/InputField";
 import { useState, useCallback } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Bounce } from "react-toastify";
 
 const ubuntuMono = Ubuntu_Mono({
   weight: "400",
@@ -20,25 +23,51 @@ export default function Home() {
   };
 
   const installRegistry = useCallback(async () => {
+    const toastId = toast.loading("Installing registry...");
+
     try {
-      const response = await fetch("/api/install-registry", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          registryUrl: registryUrl,
+      const response = await toast.promise(
+        fetch("/api/install-registry", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ registryUrl: registryUrl }),
         }),
-      });
+        {
+          pending: "Installing registry...",
+          success: "Registry installed successfully 👌",
+          error: "Failed to install registry 🤯",
+        }
+      );
+
       if (response.ok) {
         console.log("Repository cloned successfully");
+        toast.update(toastId, {
+          render: "Registry installed successfully 👌",
+          type: "success",
+          isLoading: false,
+          autoClose: 5000,
+        });
       } else {
         console.error("Failed to clone repository");
+        toast.update(toastId, {
+          render: "Failed to install registry 🤯",
+          type: "error",
+          isLoading: false,
+          autoClose: 5000,
+        });
       }
     } catch (error) {
       console.error("An error occurred:", error);
+      toast.update(toastId, {
+        render: "An error occurred while installing the registry 😥",
+        type: "error",
+        isLoading: false,
+        autoClose: 5000,
+      });
     }
-  }, [registryUrl]); // Added dependencies to useCallback
+  }, [registryUrl]);
 
   return (
     <>
