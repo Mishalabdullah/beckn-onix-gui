@@ -5,9 +5,7 @@ import { Ubuntu_Mono } from "next/font/google";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import InputField from "@/components/InputField/InputField";
 import { useState, useCallback } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Bounce } from "react-toastify";
+import { toast } from "react-toastify";
 
 const ubuntuMono = Ubuntu_Mono({
   weight: "400",
