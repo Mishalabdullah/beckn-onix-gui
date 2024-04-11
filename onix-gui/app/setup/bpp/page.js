@@ -96,7 +96,7 @@ export default function Home() {
     <>
       <main className={ubuntuMono.className}>
         <div className={styles.mainContainer}>
-          <p className={styles.currentRoute}>ONIX{pathname}</p>
+        <button onClick={() => window.history.back()} className={styles.backButton}>Back</button>
           <p className={styles.mainText}>BAP</p>
           <div className={styles.formContainer}>
             <InputField

@@ -19,6 +19,7 @@ export default function Home() {
     <>
       <main className={ubuntuMono.className}>
         <div className={styles.mainContainer}>
+        <button onClick={() => window.history.back()} className={styles.backButton}>Back</button>
           {/* <p className={styles.currentRoute}>ONIX{pathname}</p> */}
           <p className={styles.mainText}>Network Registry</p>
           <div className={styles.formContainer}>

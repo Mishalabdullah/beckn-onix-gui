@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import styles from "../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
@@ -13,6 +15,7 @@ export default function Home() {
     <>
       <main className={ubuntuMono.className}>
         <div className={styles.mainContainer}>
+        <button onClick={() => window.history.back()} className={styles.backButton}>Back</button>
           <p className={styles.mainHeading}>ONIX</p>
           <p className={styles.mainText}>
             Open Network In A Box, is a project designed to effortlessly set up
@@ -22,7 +25,7 @@ export default function Home() {
           <div className={styles.boxesContainer}>
             <Link
               href="/install/join"
-              style={{ textDecoration: "none", color: "white" }}
+              style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
                 <img src="/arrow.png" />
@@ -31,7 +34,7 @@ export default function Home() {
             </Link>
             <Link
               href="/install/create"
-              style={{ textDecoration: "none", color: "white" }}
+              style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
                 <img src="/arrow.png" />
@@ -40,7 +43,7 @@ export default function Home() {
             </Link>
             <Link
               href="/install/local"
-              style={{ textDecoration: "none", color: "white" }}
+              style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
                 <img src="/arrow.png" />
@@ -51,7 +54,7 @@ export default function Home() {
             </Link>
             <Link
               href="/install/merge"
-              style={{ textDecoration: "none", color: "white" }}
+              style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
                 <img src="/arrow.png" />
@@ -60,7 +63,7 @@ export default function Home() {
             </Link>
             <Link
               href="/install/configure"
-              style={{ textDecoration: "none", color: "white" }}
+              style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
                 <img src="/arrow.png" />

@@ -22,7 +22,7 @@ export default function Home() {
           <div className={styles.boxesContainer}>
             <Link
               href="/install"
-              style={{ textDecoration: "none", color: "white" }}
+              style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
                 <img src="/arrow.png" />
@@ -31,14 +31,14 @@ export default function Home() {
             </Link>
             <Link
               href="/monitor"
-              style={{ textDecoration: "none", color: "white" }}
+              style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
                 <img src="/arrow.png" />
                 <p className={styles.boxText}>Network Monitor</p>
               </div>
             </Link>
-            <Link href="/" style={{ textDecoration: "none", color: "white" }}>
+            <Link href="/" style={{ textDecoration: "underline", color: "white" }}>
               <div className={styles.box}>
                 <img src="/arrow.png" />
                 <p className={styles.boxText}>Network Configuration Creator</p>
