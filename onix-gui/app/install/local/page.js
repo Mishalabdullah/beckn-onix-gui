@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import styles from "../../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
@@ -13,13 +15,14 @@ export default function Home() {
     <>
       <main className={ubuntuMono.className}>
         <div className={styles.mainContainer}>
+        <button onClick={() => window.history.back()} className={styles.backButton}>Back</button>
           <p className={styles.mainText}>
             Set up a network on your local machine
           </p>
           <div className={styles.boxesContainer}>
             <Link
               href="/setup/gateway"
-              style={{ textDecoration: "none", color: "white" }}
+              style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
                 <img src="/arrow.png" />
@@ -28,7 +31,7 @@ export default function Home() {
             </Link>
             <Link
               href="/setup/bap"
-              style={{ textDecoration: "none", color: "white" }}
+              style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
                 <img src="/arrow.png" />
@@ -37,7 +40,7 @@ export default function Home() {
             </Link>
             <Link
               href="/setup/bpp"
-              style={{ textDecoration: "none", color: "white" }}
+              style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
                 <img src="/arrow.png" />

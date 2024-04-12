@@ -7,6 +7,7 @@ import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import { usePathname } from "next/navigation";
 import { useState, useCallback } from "react";
+import { toast } from "react-toastify";
 
 const ubuntuMono = Ubuntu_Mono({
   weight: "400",
@@ -40,35 +41,62 @@ export default function Home() {
   };
 
   const installBpp = useCallback(async () => {
+    const toastId = toast.loading("Installing BPP...");
+
     try {
-      const response = await fetch("/api/install-bpp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          subscriberUrl: subscriberUrl,
-          subscriberId: subscriberId,
-          registryUrl: registryUrl,
-          networkconfigurl: networkconfigurl,
-          webhookUrl: webhookUrl,
+      const response = await toast.promise(
+        fetch("/api/install-bpp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            subscriberUrl: subscriberUrl,
+            subscriberId: subscriberId,
+            registryUrl: registryUrl,
+            networkconfigurl: networkconfigurl,
+            webhookUrl: webhookUrl,
+          }),
         }),
-      });
+        {
+          pending: "Installing BPP...",
+          success: "BPP installed successfully 👌",
+          error: "Failed to install BPP 🤯",
+        }
+      );
+
       if (response.ok) {
-        console.log("Repository cloned successfully");
+        console.log("BPP installed successfully");
+        toast.update(toastId, {
+          render: "BPP installed successfully 👌",
+          type: "success",
+          isLoading: false,
+          autoClose: 5000,
+        });
       } else {
-        console.error("Failed to clone repository");
+        console.error("Failed to install BPP");
+        toast.update(toastId, {
+          render: "Failed to install BPP 🤯",
+          type: "error",
+          isLoading: false,
+          autoClose: 5000,
+        });
       }
     } catch (error) {
       console.error("An error occurred:", error);
+      toast.update(toastId, {
+        render: "An error occurred while installing BPP 😥",
+        type: "error",
+        isLoading: false,
+        autoClose: 5000,
+      });
     }
-  }, [subscriberUrl, subscriberId, registryUrl, networkconfigurl]); // Added dependencies to useCallback
-
+  }, [subscriberUrl, subscriberId, registryUrl, networkconfigurl, webhookUrl]);
   return (
     <>
       <main className={ubuntuMono.className}>
         <div className={styles.mainContainer}>
-          <p className={styles.currentRoute}>ONIX{pathname}</p>
+        <button onClick={() => window.history.back()} className={styles.backButton}>Back</button>
           <p className={styles.mainText}>BAP</p>
           <div className={styles.formContainer}>
             <InputField
