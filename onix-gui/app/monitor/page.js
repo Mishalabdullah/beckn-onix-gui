@@ -5,7 +5,7 @@ import styles from "../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
 import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
-
+import { useRouter } from "next/navigation";
 const ubuntuMono = Ubuntu_Mono({
   weight: "400",
   style: "normal",
@@ -14,6 +14,7 @@ const ubuntuMono = Ubuntu_Mono({
 
 export default function Home() {
   const [registryUrl, setRegistryUrl] = useState("");
+  const router = useRouter();
   const handleRegistryUrlChange = (event) => {
     setRegistryUrl(event.target.value);
   };
@@ -29,7 +30,8 @@ export default function Home() {
 
       if (response.ok) {
         const networkParticipantsData = await response.json();
-        console.log(networkParticipantsData);
+        router.push("/monitor/dashboard");
+        // redirecting to the dashboard page
       } else {
         console.log("error fetching participant data");
       }
