@@ -1,13 +1,9 @@
-export default async function POST(req, res) {
-  const body = await req.json();
-  const subscriberId = body.subId;
-  const uniqueKeyId = body.ukId;
-  const registryUrl = body.registryUrl;
-  const body = {
-    extended_attributes: {},
-    subscriber_id: subscriberId,
-    unique_key_id: uniqueKeyId,
-  };
+import { NextResponse } from "next/server";
+
+export async function POST(req, res) {
+  const request = await req.json();
+  const registryUrl = request.registryUrl;
+  const body = { type: "BPP" };
 
   try {
     const response = await fetch(registryUrl, {
@@ -20,10 +16,12 @@ export default async function POST(req, res) {
     });
 
     const data = await response.json();
-
-    res.status(200).json(data);
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error making request to registry" });
+    return NextResponse.json(
+      { error: "Error making request to registry" },
+      { status: 500 }
+    );
   }
 }
