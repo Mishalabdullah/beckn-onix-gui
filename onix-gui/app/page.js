@@ -38,10 +38,13 @@ export default function Home() {
                 <p className={styles.boxText}>Network Monitor</p>
               </div>
             </Link>
-            <Link href="/" style={{ textDecoration: "underline", color: "white" }}>
+            <Link
+              href="/yaml-gen"
+              style={{ textDecoration: "underline", color: "white" }}
+            >
               <div className={styles.box}>
                 <img src="/arrow.png" />
-                <p className={styles.boxText}>Network Configuration Creator</p>
+                <p className={styles.boxText}>Layer 2 Config </p>
               </div>
             </Link>
           </div>
