@@ -7,6 +7,7 @@ import { useState, useCallback } from "react";
 import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import { usePathname } from "next/navigation";
+import { toast } from "react-toastify";
 
 const ubuntuMono = Ubuntu_Mono({
   weight: "400",
@@ -31,40 +32,64 @@ export default function Home() {
   };
 
   const installGateway = useCallback(async () => {
+    const toastId = toast.loading("Installing gateway...");
+
     try {
-      console.log(
-        "Sending fetch request with values:",
-        gatewayUrl,
-        registryUrl,
-        networkconfigurl
+      const response = await toast.promise(
+        fetch("/api/install-gateway", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            gatewayUrl: gatewayUrl,
+            registryUrl: registryUrl,
+            networkconfigurl: networkconfigurl,
+          }),
+        }),
+        {
+          success: "gateway installed successfully 👌",
+          error: "Failed to install BAP 🤯",
+        }
       );
 
-      const response = await fetch("/api/install-gateway", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          gatewayUrl: gatewayUrl,
-          registryUrl: registryUrl,
-          networkconfigurl: networkconfigurl,
-        }),
-      });
       if (response.ok) {
-        console.log("Repository cloned successfully");
+        console.log("Gateway installed successfully");
+        toast.update(toastId, {
+          render: "Gateway installed successfully 👌",
+          type: "success",
+          isLoading: false,
+          autoClose: 5000,
+        });
       } else {
-        console.error("Failed to clone repository");
+        console.error("Failed to install gateway");
+        toast.update(toastId, {
+          render: "Failed to install gateway 🤯",
+          type: "error",
+          isLoading: false,
+          autoClose: 5000,
+        });
       }
     } catch (error) {
       console.error("An error occurred:", error);
+      toast.update(toastId, {
+        render: "An error occurred while installing the gateway 😥",
+        type: "error",
+        isLoading: false,
+        autoClose: 5000,
+      });
     }
-  }, [gatewayUrl, registryUrl, networkconfigurl]); // Added dependencies to useCallback
-
+  }, [gatewayUrl, registryUrl, networkconfigurl]);
   return (
     <>
       <main className={ubuntuMono.className}>
         <div className={styles.mainContainer}>
-        <button onClick={() => window.history.back()} className={styles.backButton}>Back</button>
+          <button
+            onClick={() => window.history.back()}
+            className={styles.backButton}
+          >
+            Back
+          </button>
           <p className={styles.mainText}>Gateway</p>
           <div className={styles.formContainer}>
             {/* To do todo 

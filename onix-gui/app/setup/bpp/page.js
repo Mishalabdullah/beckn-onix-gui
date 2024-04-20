@@ -5,7 +5,6 @@ import styles from "../../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
 import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
-import { usePathname } from "next/navigation";
 import { useState, useCallback } from "react";
 import { toast } from "react-toastify";
 
@@ -16,7 +15,6 @@ const ubuntuMono = Ubuntu_Mono({
 });
 
 export default function Home() {
-  let pathname = usePathname();
   const [subscriberUrl, setSubscriberUrl] = useState("");
   const [subscriberId, setSubscriberId] = useState("");
   const [registryUrl, setRegistryUrl] = useState("");
@@ -59,7 +57,6 @@ export default function Home() {
           }),
         }),
         {
-          pending: "Installing BPP...",
           success: "BPP installed successfully 👌",
           error: "Failed to install BPP 🤯",
         }
@@ -96,7 +93,12 @@ export default function Home() {
     <>
       <main className={ubuntuMono.className}>
         <div className={styles.mainContainer}>
-        <button onClick={() => window.history.back()} className={styles.backButton}>Back</button>
+          <button
+            onClick={() => window.history.back()}
+            className={styles.backButton}
+          >
+            Back
+          </button>
           <p className={styles.mainText}>BAP</p>
           <div className={styles.formContainer}>
             <InputField
