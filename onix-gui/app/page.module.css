@@ -22,6 +22,14 @@
     flex-wrap: wrap;
 }
 
+.secondBoxesContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .box {
     position: relative;
 
@@ -51,6 +59,37 @@
     top: 1rem;
     right: 1rem;
 }
+
+.smallbox {
+    position: relative;
+
+    width: 12rem;
+    height: 12rem;
+    border: 1px solid rgb(61, 61, 61);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-self: center;
+    text-align: center;
+
+    font-size: 1.25rem;
+    padding: 1rem;
+}
+
+.smallbox p {
+    max-width: 12rem;
+    margin: 0 auto;
+}
+
+.smallbox img {
+    width: 2rem;
+    position: absolute;
+
+    top: 1rem;
+    right: 1rem;
+}
+
 
 .formContainer {
     padding: 1rem;
@@ -129,7 +168,7 @@
     }
 }
 
-.counts{
+.counts {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -138,6 +177,6 @@
     margin-bottom: 2rem;
 }
 
-.count{
-   max-width: 10rem;
+.count {
+    max-width: 10rem;
 }
