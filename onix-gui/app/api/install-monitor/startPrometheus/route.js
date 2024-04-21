@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export default function POST(req, res) {
   const prometheusPath = "/usr/local/bin/prometheus"; // Adjust this path as necessary
-  const configPath = "/path/to/your/prometheus.yml"; // Adjust this path as necessary
+  const configPath = "~/prometheus.yml"; // Adjust this path as necessary
   const port = 9090; // Set your desired port here
 
   const command = `${prometheusPath} --config.file=${configPath} --web.listen-address=:${port}`;
