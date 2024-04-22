@@ -34,7 +34,7 @@ export default function Home() {
         }),
         {
           success: "registry installed successfully 👌",
-          error: "Failed to install BAP 🤯",
+          error: "Failed to install registry 🤯",
         }
       );
       console.log("console.log of response", response);
