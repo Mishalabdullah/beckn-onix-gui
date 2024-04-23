@@ -23,6 +23,7 @@ export default function CheckYaml() {
   };
 
   const handleOnclick = async () => {
+    const toastId = toast.loading("Checking for layer2 yaml file");
     try {
       const response = await fetch("/api/check-layer2", {
         method: "POST",
@@ -31,23 +32,33 @@ export default function CheckYaml() {
         },
         body: JSON.stringify({ checked }),
       });
-      console.log("the response", response);
+
       if (response.ok) {
         const data = await response.json();
-        const yamlFile = data.result2;
+        console.log("thedata", data);
+        const yamlFile = data.result;
         if (yamlFile == 0) {
-          toast.error("No Layer 2 Config Present");
+          toast.update(toastId, {
+            render: "No Layer 2 Config Present 🤯",
+            type: "error",
+            isLoading: false,
+            autoClose: 5000,
+          });
         } else {
-          toast.success("Yaml File Present");
+          toast.update(toastId, {
+            render: "Yaml File Present 👌",
+            type: "success",
+            isLoading: false,
+            autoClose: 5000,
+          });
         }
       } else {
-        console.error("Failed to install BPP");
+        console.error("Failed to check yaml");
       }
     } catch (error) {
       console.error("An error occurred:", error);
     }
   };
-
   return (
     <>
       <main className={ubuntuMono.className}>
