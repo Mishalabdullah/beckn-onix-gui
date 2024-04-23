@@ -23,47 +23,22 @@ export default function CheckYaml() {
   };
 
   const handleOnclick = async () => {
-    const toastId = toast.loading("Installing BAP...");
     try {
-      const response = await toast.promise(
-        fetch("/api/check-layer2", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ checked }),
-        }),
-        {
-          success: "Layer 2 present",
-          error: "Layer 2 not present",
-        }
-      );
+      const response = await fetch("/api/check-layer2", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ checked }),
+      });
       console.log("the response", response);
       if (response.ok) {
         console.log("BPP installed successfully");
-        toast.update(toastId, {
-          render: "Layer 2 present",
-          type: "success",
-          isLoading: false,
-          autoClose: 5000,
-        });
       } else {
         console.error("Failed to install BPP");
-        toast.update(toastId, {
-          render: "Layer 2 not present",
-          type: "error",
-          isLoading: false,
-          autoClose: 5000,
-        });
       }
     } catch (error) {
       console.error("An error occurred:", error);
-      toast.update(toastId, {
-        render: "Layer 2 not present",
-        type: "error",
-        isLoading: false,
-        autoClose: 5000,
-      });
     }
   };
 
