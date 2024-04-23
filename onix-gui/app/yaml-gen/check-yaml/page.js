@@ -33,7 +33,13 @@ export default function CheckYaml() {
       });
       console.log("the response", response);
       if (response.ok) {
-        console.log("BPP installed successfully");
+        const data = await response.json();
+        const yamlFile = data.result2;
+        if (yamlFile == 0) {
+          toast.error("No Layer 2 Config Present");
+        } else {
+          toast.success("Yaml File Present");
+        }
       } else {
         console.error("Failed to install BPP");
       }
