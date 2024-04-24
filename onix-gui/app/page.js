@@ -39,12 +39,12 @@ export default function Home() {
               </div>
             </Link>
             <Link
-              href="/yaml-gen"
+              href="/yaml-gen/check-yaml"
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
                 <img src="/arrow.png" />
-                <p className={styles.boxText}>Layer 2 Config </p>
+                <p className={styles.boxText}>Layer 2 Tester </p>
               </div>
             </Link>
           </div>

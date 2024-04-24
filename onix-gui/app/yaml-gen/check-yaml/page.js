@@ -35,8 +35,8 @@ export default function CheckYaml() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("thedata", data);
-        const yamlFile = data.result;
+        const yamlFile = data;
+        console.log("YAML", yamlFile);
         if (yamlFile == 0) {
           toast.update(toastId, {
             render: "No Layer 2 Config Present 🤯",
@@ -54,6 +54,12 @@ export default function CheckYaml() {
         }
       } else {
         console.error("Failed to check yaml");
+        toast.update(toastId, {
+          render: "Container Not Found 🤯",
+          type: "error",
+          isLoading: false,
+          autoClose: 5000,
+        });
       }
     } catch (error) {
       console.error("An error occurred:", error);
