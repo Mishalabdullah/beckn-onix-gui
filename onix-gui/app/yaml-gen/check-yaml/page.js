@@ -68,6 +68,13 @@ export default function CheckYaml() {
   return (
     <>
       <main className={ubuntuMono.className}>
+        <button
+          onClick={() => window.history.back()}
+          className={styles.backButton}
+        >
+          Back
+        </button>
+
         <div className={styles.mainContainer}>
           <p className={styles.mainText}>
             <b>Yaml File Checker</b>
