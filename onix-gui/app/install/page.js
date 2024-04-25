@@ -15,7 +15,12 @@ export default function Home() {
     <>
       <main className={ubuntuMono.className}>
         <div className={styles.mainContainer}>
-        <button onClick={() => window.history.back()} className={styles.backButton}>Back</button>
+          <button
+            onClick={() => window.history.back()}
+            className={styles.backButton}
+          >
+            Back
+          </button>
           <p className={styles.mainHeading}>ONIX</p>
           <p className={styles.mainText}>
             Open Network In A Box, is a project designed to effortlessly set up
@@ -52,7 +57,7 @@ export default function Home() {
                 </p>
               </div>
             </Link>
-            <Link
+            {/* <Link
               href="/install/merge"
               style={{ textDecoration: "underline", color: "white" }}
             >
@@ -69,7 +74,7 @@ export default function Home() {
                 <img src="/arrow.png" />
                 <p className={styles.boxText}>Configure Existing Network</p>
               </div>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </main>

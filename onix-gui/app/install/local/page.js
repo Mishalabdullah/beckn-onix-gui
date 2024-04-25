@@ -15,7 +15,12 @@ export default function Home() {
     <>
       <main className={ubuntuMono.className}>
         <div className={styles.mainContainer}>
-        <button onClick={() => window.history.back()} className={styles.backButton}>Back</button>
+          <button
+            onClick={() => window.history.back()}
+            className={styles.backButton}
+          >
+            Back
+          </button>
           <p className={styles.mainText}>
             Set up a network on your local machine
           </p>
@@ -35,7 +40,7 @@ export default function Home() {
             >
               <div className={styles.box}>
                 <img src="/arrow.png" />
-                <p className={styles.boxText}>BAP</p>
+                <p className={styles.boxText}>BAP Adapter</p>
               </div>
             </Link>
             <Link
@@ -44,7 +49,7 @@ export default function Home() {
             >
               <div className={styles.box}>
                 <img src="/arrow.png" />
-                <p className={styles.boxText}>BPP</p>
+                <p className={styles.boxText}>BPP Adapter</p>
               </div>
             </Link>
           </div>
