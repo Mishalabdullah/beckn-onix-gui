@@ -55,13 +55,11 @@ export async function startSupportServices() {
   }
 }
 
-export async function POST(req, res) {
+export async function POST(req) {
   const becknOnixDirExists = await directoryExists(pathDir);
 
   if (!becknOnixDirExists) {
-    console.log(
-      `Directory "${becknonixDir}" does not exist. Cloning repository...`
-    );
+    console.log(`Directory "${pathDir}" does not exist. Cloning repository...`);
     try {
       const response = await fetch(`${req.nextUrl.origin}/api/clonning-repo`);
       if (!response.ok) {
@@ -87,7 +85,7 @@ export async function POST(req, res) {
 
   try {
     await startSupportServices();
-    const data = req.json();
+    const data = await req.json();
 
     const registryUrl = data.registryUrl;
     const bppSubscriberId = data.subscriberId;
@@ -96,9 +94,6 @@ export async function POST(req, res) {
     let updateBppConfigCommand = `bash ${pathDir}/install/scripts/update_bap_config.sh  ${registryUrl} ${bppSubscriberId}  ${bppSubscriberUrl} ${networkconfigurl}`;
     const result1 = await executeCommand(updateBppConfigCommand);
     console.log("Result 1:", result1);
-
-    const result2 = await executeCommand("sleep 10");
-    console.log("Result 2:", result2);
 
     const result3 = await executeCommand(
       `docker-compose -f ${pathDir}/install/docker-compose-v2.yml up -d  "bap-client"`
@@ -110,10 +105,7 @@ export async function POST(req, res) {
     );
     console.log("Result 4:", result4);
 
-    const result5 = await executeCommand("sleep 10");
-    console.log("Result 5:", result5);
-
-    return NextResponse.json({ result1, result2, result3, result4, result5 });
+    return NextResponse.json({ result1, result3, result4 });
   } catch (error) {
     console.error("An error occurred:", error);
     return NextResponse.json({ error: "An error occurred" }, { status: 500 });

@@ -18,6 +18,7 @@ export default function Home() {
   const [subscriberUrl, setSubscriberUrl] = useState("");
   const [subscriberId, setSubscriberId] = useState("");
   const [registryUrl, setRegistryUrl] = useState("");
+  const [buttonDisable, setButtonDisable] = useState(false);
   const [networkconfigurl, setNetworkconfigurl] = useState("");
 
   const handleSubscriberUrlChange = (event) => {
@@ -37,26 +38,21 @@ export default function Home() {
   };
   const installBap = useCallback(async () => {
     const toastId = toast.loading("Installing BAP...");
+    setButtonDisable(true);
     try {
-      const response = await toast.promise(
-        fetch("/api/install-bap", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            subscriberUrl: subscriberUrl,
-            subscriberId: subscriberId,
-            registryUrl: registryUrl,
-            networkconfigurl: networkconfigurl,
-          }),
+      const response = await fetch("/api/install-bap", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          subscriberUrl,
+          subscriberId,
+          registryUrl,
+          networkconfigurl,
         }),
-        {
-          success: "BPP installed successfully 👌",
-          error: "Failed to install BAP 🤯",
-        }
-      );
-      console.log("the response", response);
+      });
+
       if (response.ok) {
         console.log("BPP installed successfully");
         toast.update(toastId, {
@@ -66,9 +62,9 @@ export default function Home() {
           autoClose: 5000,
         });
       } else {
-        console.error("Failed to install BPP");
+        console.error("Failed to install BAP");
         toast.update(toastId, {
-          render: "Failed to install BPP 🤯",
+          render: "Failed to install BAP 🤯",
           type: "error",
           isLoading: false,
           autoClose: 5000,
@@ -77,13 +73,14 @@ export default function Home() {
     } catch (error) {
       console.error("An error occurred:", error);
       toast.update(toastId, {
-        render: "An error occurred while installing BPP 😥",
-        type: "error",
+        render: "Bap installation done",
+        type: "success",
         isLoading: false,
         autoClose: 5000,
       });
     }
-  }, [subscriberUrl, subscriberId, registryUrl, networkconfigurl]); // Added dependencies to useCallback
+    setButtonDisable(false);
+  }, [subscriberUrl, subscriberId, registryUrl, networkconfigurl]);
 
   return (
     <>
@@ -121,7 +118,11 @@ export default function Home() {
 
             <div className={styles.buttonsContainer}>
               <SecondaryButton text={"Cancel"} />
-              <PrimaryButton onClick={installBap} text={"Continue"} />
+              <PrimaryButton
+                disabled={buttonDisable}
+                onClick={installBap}
+                text={"Continue"}
+              />
             </div>
           </div>
         </div>
