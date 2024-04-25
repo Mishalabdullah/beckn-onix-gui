@@ -20,6 +20,7 @@ export default function Home() {
   const [registryUrl, setRegistryUrl] = useState("");
   const [networkconfigurl, setNetworkconfigurl] = useState("");
   const [webhookUrl, setWebhookUrl] = useState("");
+  const [buttonDisable, setButtonDisable] = useState(false);
   const handleSubscriberUrlChange = (event) => {
     setSubscriberUrl(event.target.value);
   };
@@ -40,7 +41,7 @@ export default function Home() {
 
   const installBpp = useCallback(async () => {
     const toastId = toast.loading("Installing BPP...");
-
+    setButtonDisable(true);
     try {
       const response = await toast.promise(
         fetch("/api/install-bpp", {
@@ -88,6 +89,7 @@ export default function Home() {
         autoClose: 5000,
       });
     }
+    setButtonDisable(false);
   }, [subscriberUrl, subscriberId, registryUrl, networkconfigurl, webhookUrl]);
   return (
     <>
@@ -99,7 +101,7 @@ export default function Home() {
           >
             Back
           </button>
-          <p className={styles.mainText}>BAP</p>
+          <p className={styles.mainText}>BPP</p>
           <div className={styles.formContainer}>
             <InputField
               label={"Subscriber ID"}
@@ -130,7 +132,11 @@ export default function Home() {
 
             <div className={styles.buttonsContainer}>
               <SecondaryButton text={"Cancel"} />
-              <PrimaryButton onClick={installBpp} text={"Continue"} />
+              <PrimaryButton
+                disable={buttonDisable}
+                onClick={installBpp}
+                text={"Continue"}
+              />
             </div>
           </div>
         </div>
