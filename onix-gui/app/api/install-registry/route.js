@@ -113,7 +113,9 @@ export async function POST(req, res) {
       await fs.rename(tempFile, configFile);
       await executeCommand("docker volume create registry_data_volume");
       await executeCommand("docker volume create registry_database_volume");
-
+      // Maybe need to add these if it cause volume error
+      //sudo docker volume create gateway_data_volume
+      //sudo docker volume create gateway_database_volume
       // Copy files to the registry_data_volume
       await executeCommand(
         `docker run --rm -v ${join(

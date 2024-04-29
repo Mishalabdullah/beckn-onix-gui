@@ -85,7 +85,7 @@ export default function Home() {
               onChange={handleRegistryUrlChange}
             />
             <div className={styles.buttonsContainer}>
-              <SecondaryButton text={"Cancel"} />
+              {/* <SecondaryButton text={"Cancel"} /> */}
               <PrimaryButton onClick={installRegistry} text={"Continue"} />
             </div>
           </div>
