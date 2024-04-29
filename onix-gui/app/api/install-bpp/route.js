@@ -47,7 +47,10 @@ export async function startSupportServices() {
       `docker-compose -f ${pathDir}/install/docker-compose-app.yml up -d redis_db`
     );
     console.log("Result 3:", result3);
-
+    await executeCommand("docker volume create registry_data_volume");
+    await executeCommand("docker volume create registry_database_volume");
+    await executeCommand("docker volume create gateway_data_volume");
+    await executeCommand("docker volume create gateway_database_volume");
     return NextResponse.json({ result1, result2, result3 });
   } catch (error) {
     console.error("An error occurred:", error);
