@@ -47,7 +47,10 @@ export async function startSupportServices() {
       `docker-compose -f ${pathDir}/install/docker-compose-app.yml up -d redis_db`
     );
     console.log("Result 3:", result3);
-
+    await executeCommand("docker volume create registry_data_volume");
+    await executeCommand("docker volume create registry_database_volume");
+    await executeCommand("docker volume create gateway_data_volume");
+    await executeCommand("docker volume create gateway_database_volume");
     return NextResponse.json({ result1, result2, result3 });
   } catch (error) {
     console.error("An error occurred:", error);
@@ -91,10 +94,7 @@ export async function POST(req) {
     const bppSubscriberId = data.subscriberId;
     const bppSubscriberUrl = data.subscriberUrl;
     const networkconfigurl = data.networkconfigurl;
-    await executeCommand("docker volume create registry_data_volume");
-    await executeCommand("docker volume create registry_database_volume");
-    await executeCommand("docker volume create gateway_data_volume");
-    await executeCommand("docker volume create gateway_database_volume");
+
     let updateBppConfigCommand = `bash ${pathDir}/install/scripts/update_bap_config.sh  ${registryUrl} ${bppSubscriberId}  ${bppSubscriberUrl} ${networkconfigurl}`;
     const result1 = await executeCommand(updateBppConfigCommand);
     console.log("Result 1:", result1);
