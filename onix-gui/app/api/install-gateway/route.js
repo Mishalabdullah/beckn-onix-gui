@@ -69,9 +69,15 @@ export async function POST(req, res) {
       ` bash ${pathDir}/install/scripts/update_gateway_details.sh ${data.registryUrl} ${data.gatewayUrl}`
     );
     console.log("Result 2:", result2);
-
-    const result3 = await executeCommand(
-      `docker-compose -f ${pathDir}/install/docker-compose-v2.yml up -d gateway`
+    await executeCommand("docker volume create registry_data_volume");
+    await executeCommand("docker volume create registry_database_volume");
+    await executeCommand(
+      `docker run --rm -v ${join(
+        pathDir,
+        "install",
+        "gateway_data",
+        "config"
+      )}:/source -v gateway_data_volume:/target busybox cp -r /source/networks /target/`
     );
     console.log("Result 3:", result3);
 
