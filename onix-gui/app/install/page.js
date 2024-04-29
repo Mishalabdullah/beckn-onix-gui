@@ -46,7 +46,7 @@ export default function Home() {
                 <p className={styles.boxText}>Create new production network</p>
               </div>
             </Link>
-            <Link
+            {/* <Link
               href="/install/local"
               style={{ textDecoration: "underline", color: "white" }}
             >
@@ -56,7 +56,7 @@ export default function Home() {
                   Set up a network on your local machine
                 </p>
               </div>
-            </Link>
+            </Link> */}
             {/* <Link
               href="/install/merge"
               style={{ textDecoration: "underline", color: "white" }}

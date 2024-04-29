@@ -29,7 +29,7 @@ export default function Home() {
                 <p className={styles.boxText}>Installation Wizard</p>
               </div>
             </Link>
-            <Link
+            {/* <Link
               href="/monitor"
               style={{ textDecoration: "underline", color: "white" }}
             >
@@ -37,7 +37,7 @@ export default function Home() {
                 <img src="/arrow.png" />
                 <p className={styles.boxText}>Network Monitor</p>
               </div>
-            </Link>
+            </Link> */}
             <Link
               href="/yaml-gen/check-yaml"
               style={{ textDecoration: "underline", color: "white" }}
