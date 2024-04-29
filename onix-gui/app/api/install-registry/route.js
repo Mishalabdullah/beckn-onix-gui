@@ -111,6 +111,20 @@ export async function POST(req, res) {
 
       await fs.writeFile(tempFile, updatedConfigData);
       await fs.rename(tempFile, configFile);
+      await executeCommand("docker volume create registry_data_volume");
+      await executeCommand("docker volume create registry_database_volume");
+
+      // Copy files to the registry_data_volume
+      await executeCommand(
+        `docker run --rm -v ${join(
+          pathDir,
+          "install",
+          "registry_data",
+          "config"
+        )}:/source -v registry_data_volume:/target busybox sh -c "cp /source/envvars /target/ && cp /source/logger.properties /target/ && cp /source/swf.properties /target/"`
+      );
+
+      // Start the registry container
       await executeCommand(
         `docker-compose -f ${join(
           pathDir,

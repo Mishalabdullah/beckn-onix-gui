@@ -75,7 +75,7 @@ export async function POST(req, res) {
     );
     console.log("Result 3:", result3);
 
-    const result4 = await executeCommand(`sleep 10`);
+    const result4 = await executeCommand(`sleep 2`);
     console.log("Result 4:", result4);
 
     const result5 = await executeCommand(
