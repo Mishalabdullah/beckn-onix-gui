@@ -94,7 +94,10 @@ export async function POST(req) {
     let updateBppConfigCommand = `bash ${pathDir}/install/scripts/update_bap_config.sh  ${registryUrl} ${bppSubscriberId}  ${bppSubscriberUrl} ${networkconfigurl}`;
     const result1 = await executeCommand(updateBppConfigCommand);
     console.log("Result 1:", result1);
-
+    await executeCommand("docker volume create registry_data_volume");
+    await executeCommand("docker volume create registry_database_volume");
+    await executeCommand("docker volume create gateway_data_volume");
+    await executeCommand("docker volume create gateway_database_volume");
     const result3 = await executeCommand(
       `docker-compose -f ${pathDir}/install/docker-compose-v2.yml up -d  "bap-client"`
     );
