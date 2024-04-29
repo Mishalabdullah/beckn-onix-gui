@@ -115,7 +115,7 @@ export default function Home() {
             />
 
             <div className={styles.buttonsContainer}>
-              <SecondaryButton text={"Cancel"} />
+              {/* <SecondaryButton text={"Cancel"} /> */}
               <PrimaryButton onClick={installGateway} text={"Continue"} />
             </div>
           </div>

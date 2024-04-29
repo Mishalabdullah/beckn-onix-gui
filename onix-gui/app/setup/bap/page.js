@@ -117,7 +117,7 @@ export default function Home() {
             />
 
             <div className={styles.buttonsContainer}>
-              <SecondaryButton text={"Cancel"} />
+              {/* <SecondaryButton text={"Cancel"} /> */}
               <PrimaryButton
                 disabled={buttonDisable}
                 onClick={installBap}

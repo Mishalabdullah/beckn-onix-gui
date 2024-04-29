@@ -131,7 +131,7 @@ export default function Home() {
             />
 
             <div className={styles.buttonsContainer}>
-              <SecondaryButton text={"Cancel"} />
+              {/* <SecondaryButton text={"Cancel"} /> */}
               <PrimaryButton
                 disable={buttonDisable}
                 onClick={installBpp}
