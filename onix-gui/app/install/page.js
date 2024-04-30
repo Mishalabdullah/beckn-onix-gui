@@ -3,7 +3,7 @@
 import Link from "next/link";
 import styles from "../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
-
+import Image from "next/image";
 const ubuntuMono = Ubuntu_Mono({
   weight: "400",
   style: "normal",
@@ -33,7 +33,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <img src="/arrow.png" />
+                <Image alt="arrow" src="/arrow.png" />
                 <p className={styles.boxText}>Join an existing network</p>
               </div>
             </Link>
@@ -42,7 +42,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <img src="/arrow.png" />
+                <Image alt="arrow" src="/arrow.png" />
                 <p className={styles.boxText}>Create new production network</p>
               </div>
             </Link>
@@ -51,7 +51,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <img src="/arrow.png" />
+                <Image alt="arrow" src="/arrow.png" />
                 <p className={styles.boxText}>
                   Set up a network on your local machine
                 </p>
@@ -62,7 +62,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <img src="/arrow.png" />
+                <Image alt="arrow" src="/arrow.png" />
                 <p className={styles.boxText}>Merge multiple networks</p>
               </div>
             </Link>
@@ -71,7 +71,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <img src="/arrow.png" />
+                <Image alt="arrow" src="/arrow.png" />
                 <p className={styles.boxText}>Configure Existing Network</p>
               </div>
             </Link> */}

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import styles from "../../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
-
+import Image from "next/image";
 const ubuntuMono = Ubuntu_Mono({
   weight: "400",
   style: "normal",
@@ -28,7 +28,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <img src="/arrow.png" />
+                <Image alt="arrow" src="/arrow.png" />
                 <p className={styles.boxText}>Gateway</p>
               </div>
             </Link>
@@ -37,7 +37,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <img src="/arrow.png" />
+                <Image alt="arrow" src="/arrow.png" />
                 <p className={styles.boxText}>BAP Adapter</p>
               </div>
             </Link>
@@ -46,7 +46,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <img src="/arrow.png" />
+                <Image alt="arrow" src="/arrow.png" />
                 <p className={styles.boxText}>BPP Adapter</p>
               </div>
             </Link>

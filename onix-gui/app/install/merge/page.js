@@ -3,7 +3,7 @@
 import Link from "next/link";
 import styles from "../../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
-
+import Image from "next/image";
 const ubuntuMono = Ubuntu_Mono({
   weight: "400",
   style: "normal",
@@ -15,7 +15,12 @@ export default function Home() {
     <>
       <main className={ubuntuMono.className}>
         <div className={styles.mainContainer}>
-        <button onClick={() => window.history.back()} className={styles.backButton}>Back</button>
+          <button
+            onClick={() => window.history.back()}
+            className={styles.backButton}
+          >
+            Back
+          </button>
           <p className={styles.mainText}>Merge multiple networks</p>
           <div className={styles.boxesContainer}>
             <Link
@@ -23,7 +28,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <img src="/arrow.png" />
+                <Image alt="arrow" src="/arrow.png" />
                 <p className={styles.boxText}>Gateway</p>
               </div>
             </Link>
@@ -32,7 +37,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <img src="/arrow.png" />
+                <Image alt="arrow" src="/arrow.png" />
                 <p className={styles.boxText}>BAP</p>
               </div>
             </Link>
@@ -41,7 +46,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <img src="/arrow.png" />
+                <Image alt="arrow" src="/arrow.png" />
                 <p className={styles.boxText}>BPP</p>
               </div>
             </Link>
