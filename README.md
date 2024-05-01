@@ -22,8 +22,9 @@ cd onix-gui
 
 ### Step 3: Run nextjs on port 3005
 
+For running the installation script just run this command. The sudo privilages are required when installing packages and configuring the nginx reverse proxy
 ```
-npm run dev -- --port 3005
+sudo ./start.sh
 ```
 
 Note: Port 3000 is being used by onix, so we're using port 3005 instead.
