@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   const request = await req.json();
   const containerName = request.checked ? "bpp-network" : "bap-network";
-  const fileToCheck = "dsep_courses_1.1.0.yaml";
+  const fileToCheck = request.fileName;
 
   const executeShellCommand = (command) => {
     return new Promise((resolve, reject) => {

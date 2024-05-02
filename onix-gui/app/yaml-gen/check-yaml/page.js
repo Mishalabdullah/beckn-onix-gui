@@ -6,6 +6,7 @@ import InputField from "@/components/InputField/InputField";
 import Slider from "@/components/Slider/Slider";
 import styles from "../../page.module.css";
 import { toast } from "react-toastify";
+
 import Link from "next/link";
 
 const ubuntuMono = Ubuntu_Mono({
@@ -38,8 +39,50 @@ export default function CheckYaml() {
     const filename = `${domainNameWithoutVersion}_${domainVersion}_${versionNumber}.yaml`;
     return filename;
   };
+  const handleDownload = async () => {
+    const userInput = prompt("Enter the URL of the Layer 2 Config file");
+    try {
+      const response = await fetch("/api/install-layer2", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ checked, userInput }),
+      });
 
-  // const handleDownload = async () => {};
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        const FileFound = data.message;
+        if (FileFound == false) {
+          setShowDownloadLayer2Button(true);
+          toast.update(toastId, {
+            render: "No Layer 2 Config Present 🤯",
+            type: "error",
+            isLoading: false,
+            autoClose: 5000,
+          });
+        } else {
+          toast.update(toastId, {
+            render: "Yaml File Present 👌",
+            type: "success",
+            isLoading: false,
+            autoClose: 5000,
+          });
+        }
+      } else {
+        console.error("Failed to check yaml");
+        toast.update(toastId, {
+          render: "Container Not Found 🤯",
+          type: "error",
+          isLoading: false,
+          autoClose: 5000,
+        });
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
 
   const handleOnclick = async () => {
     const fileName = await nameGenerator();
@@ -127,6 +170,17 @@ export default function CheckYaml() {
             <div className={styles.buttonsContainer}>
               <PrimaryButton label={"Check"} onClick={handleOnclick} />
             </div>
+            {showDownloadLayer2Button && (
+              <div className={styles.buttonsContainer}>
+                <a
+                  href={`/yaml-gen/install-yaml?container=${
+                    checked === true ? "bpp-network" : "bap-network"
+                  }`}
+                >
+                  Download Layer 2 Config
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </main>
