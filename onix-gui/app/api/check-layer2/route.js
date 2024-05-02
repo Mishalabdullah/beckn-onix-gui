@@ -2,8 +2,9 @@ import { exec } from "child_process";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-  const checked = await req.json();
-  const containerName = checked.checked ? "bpp-network" : "bap-network";
+  const request = await req.json();
+  const containerName = request.checked ? "bpp-network" : "bap-network";
+  const fileToCheck = "dsep_courses_1.1.0.yaml";
 
   const executeShellCommand = (command) => {
     return new Promise((resolve, reject) => {
@@ -13,13 +14,11 @@ export async function POST(req) {
           reject(error);
           return;
         }
-
         if (stderr) {
           console.error("Error:", stderr);
           reject(new Error(stderr));
           return;
         }
-
         const output = stdout;
         console.log("Output:", output);
         resolve(output);
@@ -31,7 +30,6 @@ export async function POST(req) {
     const containerExists = await executeShellCommand(
       `docker ps -a --filter "name=${containerName}" --format "{{.Names}}"`
     );
-
     if (!containerExists.trim()) {
       return new NextResponse(`Error: ${containerName} server not present`, {
         status: 500,
@@ -39,14 +37,30 @@ export async function POST(req) {
     }
 
     const result = await executeShellCommand(
-      `docker exec ${containerName} ls /usr/src/app/schemas/ | grep -v "core" | grep ".yaml" | wc -l`
+      `docker exec ${containerName} /bin/sh -c "[ -f '/usr/src/app/schemas/${fileToCheck}' ] && echo 'File found' || echo 'File not found'"`
     );
-
-    return new NextResponse(result);
+    if (result.trim() === "File found") {
+      return NextResponse.json(
+        { message: true },
+        {
+          status: 200,
+        }
+      );
+    } else {
+      return NextResponse.json(
+        { message: false },
+        {
+          status: 200,
+        }
+      );
+    }
   } catch (error) {
     console.error(`exec error: ${error}`);
-    return new NextResponse(`Error executing shell command: ${error}`, {
-      status: 500,
-    });
+    return NextResponse.json(
+      { message: `Error executing shell command: ${error}` },
+      {
+        status: 500,
+      }
+    );
   }
 }

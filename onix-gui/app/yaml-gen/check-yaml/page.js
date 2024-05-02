@@ -15,14 +15,34 @@ const ubuntuMono = Ubuntu_Mono({
 });
 
 export default function CheckYaml() {
+  const [domainName, setDomainName] = useState("");
+  const [versionNumber, setversionNumber] = useState("");
   const [checked, setChecked] = useState(false);
+  const [showDownloadLayer2Button, setShowDownloadLayer2Button] =
+    useState(false);
   const [propertyLink, setPropertyLink] = useState("");
 
   const handleYamlChange = (event) => {
     setPropertyLink(event.target.value);
   };
+  const handledomainNameChange = (event) => {
+    setDomainName(event.target.value);
+  };
+  const handleVersionChange = (event) => {
+    setversionNumber(event.target.value);
+  };
+  const nameGenerator = async () => {
+    const parts = domainName.split(":");
+    const domainNameWithoutVersion = parts[0];
+    const domainVersion = parts[1] || "";
+    const filename = `${domainNameWithoutVersion}_${domainVersion}_${versionNumber}.yaml`;
+    return filename;
+  };
+
+  // const handleDownload = async () => {};
 
   const handleOnclick = async () => {
+    const fileName = await nameGenerator();
     const toastId = toast.loading("Checking for layer2 yaml file");
     try {
       const response = await fetch("/api/check-layer2", {
@@ -30,14 +50,14 @@ export default function CheckYaml() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ checked }),
+        body: JSON.stringify({ checked, fileName }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        const yamlFile = data;
-        console.log("YAML", yamlFile);
-        if (yamlFile == 0) {
+        const FileFound = data.message;
+        if (FileFound == false) {
+          setShowDownloadLayer2Button(true);
           toast.update(toastId, {
             render: "No Layer 2 Config Present 🤯",
             type: "error",
@@ -89,15 +109,23 @@ export default function CheckYaml() {
             <InputField
               label={"Container Name"}
               value={checked ? "bpp-network" : "bap-network"}
+              readOnly
             />
-            {/* <InputField
-              label={"Yaml  Link"}
-              value={propertyLink}
-              onChange={handleYamlChange}
-            /> */}
+            <InputField
+              label={"Domain Name"}
+              value={domainName}
+              onChange={handledomainNameChange}
+              placeholder="Retail"
+            />
+            <InputField
+              label={"Version Number"}
+              value={versionNumber}
+              onChange={handleVersionChange}
+              placeholder="1.0.0"
+            />
 
             <div className={styles.buttonsContainer}>
-              <PrimaryButton text={"Continue"} onClick={handleOnclick} />
+              <PrimaryButton label={"Check"} onClick={handleOnclick} />
             </div>
           </div>
         </div>
