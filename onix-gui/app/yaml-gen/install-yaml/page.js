@@ -2,11 +2,12 @@
 import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import styles from "../../page.module.css";
 import { Ubuntu_Mono } from "next/font/google";
+import Slider from "@/components/Slider/Slider";
 import PrimaryButton from "@/components/Buttons/PrimaryButton";
 import InputField from "@/components/InputField/InputField";
 import { useState, useCallback } from "react";
 import { toast } from "react-toastify";
-import { useSearchParams } from "next/navigation";
+
 const ubuntuMono = Ubuntu_Mono({
   weight: "400",
   style: "normal",
@@ -15,9 +16,9 @@ const ubuntuMono = Ubuntu_Mono({
 
 export default function InstallYaml() {
   const [yamlUrl, setYamlUrl] = useState("");
-  const searchParams = useSearchParams();
+  const [checked, setChecked] = useState(false);
 
-  const container = searchParams.get("container");
+  const container = checked ? "bpp-network" : "bap-network";
 
   const handleRegistryUrlChange = (event) => {
     setYamlUrl(event.target.value);
@@ -81,6 +82,11 @@ export default function InstallYaml() {
           </button>
           <p className={styles.mainText}>Install Yaml</p>
           <div className={styles.formContainer}>
+            <Slider
+              label={checked ? "BPP" : "BAP"}
+              checked={checked}
+              toggleChecked={setChecked}
+            />
             <InputField
               label={"Enter Layer 2 URL"}
               value={yamlUrl}

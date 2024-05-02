@@ -172,13 +172,7 @@ export default function CheckYaml() {
             </div>
             {showDownloadLayer2Button && (
               <div className={styles.buttonsContainer}>
-                <a
-                  href={`/yaml-gen/install-yaml?container=${
-                    checked === true ? "bpp-network" : "bap-network"
-                  }`}
-                >
-                  Download Layer 2 Config
-                </a>
+                <a href={`/yaml-gen/install-yaml`}>Download Layer 2 Config</a>
               </div>
             )}
           </div>
