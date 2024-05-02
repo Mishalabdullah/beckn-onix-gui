@@ -79,7 +79,7 @@ export default function InstallYaml() {
           >
             Back
           </button>
-          <p className={styles.mainText}>Registry</p>
+          <p className={styles.mainText}>Install Yaml</p>
           <div className={styles.formContainer}>
             <InputField
               label={"Enter Layer 2 URL"}
