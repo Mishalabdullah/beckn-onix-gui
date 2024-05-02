@@ -5,10 +5,13 @@ PROJECT_DIR="onix-gui"
 PORT=3005
 TUNNEL_SERVICE="lt"
 
+npm install -g "$TUNNEL_SERVICE" &&
 # Change to the project directory
 cd "$PROJECT_DIR" || exit
-
+npm i &&
 # Build and start the Next.js app
+echo "installing Dependencies"
+
 echo "Building and starting Next.js app..."
 npx next build &&
 echo "Builing Web App = True"
@@ -22,10 +25,6 @@ until nc -z localhost "$PORT"; do
 done
 
 # Install the tunnel service if not installed
-if ! command -v "$TUNNEL_SERVICE" &> /dev/null; then
-    echo "Installing $TUNNEL_SERVICE..."
-    npm install -g "$TUNNEL_SERVICE"
-fi
 
 
 

@@ -26,23 +26,33 @@ export default function Nginx() {
     setProxyName(event.target.value);
   };
 
-  const installBap = useCallback(async () => {
-    const toastId = toast.loading("Installing BAP...");
+  const configure_nginx = useCallback(async () => {
+    const toastId = toast.loading("Setting Up Nginx");
     setButtonDisable(true);
     try {
-      const response = await fetch("/api/install-bap");
+      const response = await fetch("/api/configure-nginx", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          serverName,
+          proxyname,
+        }),
+      });
       if (response.ok) {
-        console.log("BPP installed successfully");
+        console.log("Ningx Configured Successfully");
         toast.update(toastId, {
-          render: "BPP installed successfully 👌",
+          render: "Nginx Configured Successfully 👌",
           type: "success",
           isLoading: false,
           autoClose: 5000,
         });
       } else {
-        console.error("Failed to install BAP");
+        s;
+        console.error("Nginx Configure Failed");
         toast.update(toastId, {
-          render: "Failed to install BAP 🤯",
+          render: "Nginx Configure Failed 🤯",
           type: "error",
           isLoading: false,
           autoClose: 5000,
@@ -87,7 +97,7 @@ export default function Nginx() {
               {/* <SecondaryButton text={"Cancel"} /> */}
               <PrimaryButton
                 disabled={buttonDisable}
-                onClick={installBap}
+                onClick={configure_nginx}
                 text={"Continue"}
               />
             </div>
