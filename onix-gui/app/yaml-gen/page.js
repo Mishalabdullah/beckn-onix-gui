@@ -35,53 +35,14 @@ export default function CheckYaml() {
   const nameGenerator = async () => {
     const parts = domainName.split(":");
     const domainNameWithoutVersion = parts[0];
-    const domainVersion = parts[1] || "";
-    const filename = `${domainNameWithoutVersion}_${domainVersion}_${versionNumber}.yaml`;
-    return filename;
-  };
-  const handleDownload = async () => {
-    const userInput = prompt("Enter the URL of the Layer 2 Config file");
-    try {
-      const response = await fetch("/api/install-layer2", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ checked, userInput }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        const FileFound = data.message;
-        if (FileFound == false) {
-          setShowDownloadLayer2Button(true);
-          toast.update(toastId, {
-            render: "No Layer 2 Config Present 🤯",
-            type: "error",
-            isLoading: false,
-            autoClose: 5000,
-          });
-        } else {
-          toast.update(toastId, {
-            render: "Yaml File Present 👌",
-            type: "success",
-            isLoading: false,
-            autoClose: 5000,
-          });
-        }
-      } else {
-        console.error("Failed to check yaml");
-        toast.update(toastId, {
-          render: "Container Not Found 🤯",
-          type: "error",
-          isLoading: false,
-          autoClose: 5000,
-        });
-      }
-    } catch (error) {
-      console.error("An error occurred:", error);
+    let filename;
+    if (parts[1] === undefined || parts[1] === "") {
+      filename = `${domainNameWithoutVersion}_${versionNumber}.yaml`;
+    } else {
+      filename = `${domainNameWithoutVersion}_${parts[1]}_${versionNumber}.yaml`;
     }
+    console.log(filename);
+    return filename;
   };
 
   const handleOnclick = async () => {
