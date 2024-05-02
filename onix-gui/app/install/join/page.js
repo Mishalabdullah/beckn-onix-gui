@@ -32,7 +32,7 @@ export default function Home() {
               }}
             >
               <div className={styles.box}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Gateway</p>
               </div>
             </Link>
@@ -44,7 +44,7 @@ export default function Home() {
               }}
             >
               <div className={styles.box}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>BAP Adapter</p>
               </div>
             </Link>
@@ -56,7 +56,7 @@ export default function Home() {
               }}
             >
               <div className={styles.box}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>BPP Adapter</p>
               </div>
             </Link>

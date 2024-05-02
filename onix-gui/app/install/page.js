@@ -33,7 +33,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Join an existing network</p>
               </div>
             </Link>
@@ -42,7 +42,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Create new production network</p>
               </div>
             </Link>
@@ -51,7 +51,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png"/>
                 <p className={styles.boxText}>
                   Set up a network on your local machine
                 </p>
@@ -62,7 +62,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png"/>
                 <p className={styles.boxText}>Merge multiple networks</p>
               </div>
             </Link>
@@ -71,7 +71,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png"/>
                 <p className={styles.boxText}>Configure Existing Network</p>
               </div>
             </Link> */}

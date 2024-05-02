@@ -22,7 +22,7 @@ export default function Option() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>BAP</p>
               </div>
             </Link>
@@ -31,7 +31,7 @@ export default function Option() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>BPP</p>
               </div>
             </Link>

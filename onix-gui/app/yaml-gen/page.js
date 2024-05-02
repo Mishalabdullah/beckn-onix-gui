@@ -23,7 +23,7 @@ export default function YamlGen() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.smallbox}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Search</p>
               </div>
             </Link>
@@ -32,7 +32,7 @@ export default function YamlGen() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.smallbox}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Select</p>
               </div>
             </Link>
@@ -41,7 +41,7 @@ export default function YamlGen() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.smallbox}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Init</p>
               </div>
             </Link>
@@ -50,7 +50,7 @@ export default function YamlGen() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.smallbox}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Confirm</p>
               </div>
             </Link>
@@ -59,7 +59,7 @@ export default function YamlGen() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.smallbox}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Status</p>
               </div>
             </Link>
@@ -70,7 +70,7 @@ export default function YamlGen() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.smallbox}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Track</p>
               </div>
             </Link>
@@ -79,7 +79,7 @@ export default function YamlGen() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.smallbox}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Cancel</p>
               </div>
             </Link>
@@ -88,7 +88,7 @@ export default function YamlGen() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.smallbox}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Update</p>
               </div>
             </Link>
@@ -97,7 +97,7 @@ export default function YamlGen() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.smallbox}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Rating</p>
               </div>
             </Link>
@@ -106,7 +106,7 @@ export default function YamlGen() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.smallbox}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Support</p>
               </div>
             </Link>

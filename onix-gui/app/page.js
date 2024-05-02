@@ -25,7 +25,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Installation Wizard</p>
               </div>
             </Link>
@@ -34,7 +34,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={5} height={3} src="/arrow.png" />
                 <p className={styles.boxText}>Network Monitor</p>
               </div>
             </Link> */}
@@ -43,7 +43,7 @@ export default function Home() {
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>
-                <Image alt="arrow" src="/arrow.png" />
+                <Image alt="arrow" width={20} height={20} src="/arrow.png" />
                 <p className={styles.boxText}>Layer 2 Tester </p>
               </div>
             </Link>
