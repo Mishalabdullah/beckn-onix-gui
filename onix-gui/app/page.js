@@ -39,7 +39,7 @@ export default function Home() {
               </div>
             </Link> */}
             <Link
-              href="/yaml-gen/check-yaml"
+              href="/yaml-gen/"
               style={{ textDecoration: "underline", color: "white" }}
             >
               <div className={styles.box}>

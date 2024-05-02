@@ -46,35 +46,6 @@ export default function Home() {
                 <p className={styles.boxText}>Create new production network</p>
               </div>
             </Link>
-            {/* <Link
-              href="/install/local"
-              style={{ textDecoration: "underline", color: "white" }}
-            >
-              <div className={styles.box}>
-                <Image alt="arrow" width={20} height={20} src="/arrow.png"/>
-                <p className={styles.boxText}>
-                  Set up a network on your local machine
-                </p>
-              </div>
-            </Link> */}
-            {/* <Link
-              href="/install/merge"
-              style={{ textDecoration: "underline", color: "white" }}
-            >
-              <div className={styles.box}>
-                <Image alt="arrow" width={20} height={20} src="/arrow.png"/>
-                <p className={styles.boxText}>Merge multiple networks</p>
-              </div>
-            </Link>
-            <Link
-              href="/install/configure"
-              style={{ textDecoration: "underline", color: "white" }}
-            >
-              <div className={styles.box}>
-                <Image alt="arrow" width={20} height={20} src="/arrow.png"/>
-                <p className={styles.boxText}>Configure Existing Network</p>
-              </div>
-            </Link> */}
           </div>
         </div>
       </main>
