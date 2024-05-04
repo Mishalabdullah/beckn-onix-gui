@@ -95,7 +95,7 @@ export async function POST(req) {
     const bppSubscriberUrl = data.subscriberUrl;
     const networkconfigurl = data.networkconfigurl;
 
-    let updateBppConfigCommand = `bash ${pathDir}/install/scripts/update_bap_config.sh  ${registryUrl} ${bppSubscriberId}  ${bppSubscriberUrl} ${networkconfigurl}`;
+    let updateBppConfigCommand = `bash ${pathDir}/install/scripts/update_bap_config.sh  ${registryUrl} ${bppSubscriberId} ${"testing"}  ${bppSubscriberUrl} ${networkconfigurl}`;
     const result1 = await executeCommand(updateBppConfigCommand);
     console.log("Result 1:", result1);
     const result3 = await executeCommand(
