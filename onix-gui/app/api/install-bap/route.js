@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import { join } from "path";
 import os from "os";
+import { v4 as uuidv4 } from "uuid";
 
 const pathDir = join(os.homedir(), "beckn-onix");
 
@@ -94,8 +95,8 @@ export async function POST(req) {
     const bppSubscriberId = data.subscriberId;
     const bppSubscriberUrl = data.subscriberUrl;
     const networkconfigurl = data.networkconfigurl;
-
-    let updateBppConfigCommand = `bash ${pathDir}/install/scripts/update_bap_config.sh  ${registryUrl} ${bppSubscriberId} ${"testing"}  ${bppSubscriberUrl} ${networkconfigurl}`;
+    const uuid = uuidv4({ length: 8 });
+    let updateBppConfigCommand = `bash ${pathDir}/install/scripts/update_bap_config.sh  ${registryUrl} ${bppSubscriberId} ${uuid}  ${bppSubscriberUrl} ${networkconfigurl}`;
     const result1 = await executeCommand(updateBppConfigCommand);
     console.log("Result 1:", result1);
     const result3 = await executeCommand(
