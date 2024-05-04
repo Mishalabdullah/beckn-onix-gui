@@ -89,18 +89,20 @@ export async function POST(req, res) {
 
   try {
     await startSupportServices();
-    const data = req.json();
+    const data = await req.json();
     const registryUrl = data.registryUrl;
     const bppSubscriberId = data.subscriberId;
     const bppSubscriberUrl = data.subscriberUrl;
     const webhookUrl = data.webhookUrl;
+
     // const webhookUrl = "https://unified-bpp.becknprotocol.io/beckn-bpp-adapter";
 
     // let updateBppConfigCommand = "bash scripts/update_bpp_config.sh";
     // if (registryUrl) {
     //   updateBppConfigCommand += ``;
     // }
-    let updateBppConfigCommand = `bash ${pathDir}/install/scripts/update_bpp_config.sh  ${registryUrl} ${bppSubscriberId}  ${bppSubscriberUrl} ${webhookUrl}`;
+
+    let updateBppConfigCommand = `bash ${pathDir}/install/scripts/update_bpp_config.sh  ${registryUrl} ${bppSubscriberId} ${"tesing"} ${bppSubscriberUrl} ${webhookUrl}`;
     const result1 = await executeCommand(updateBppConfigCommand);
     console.log("Result 1:", result1);
 
