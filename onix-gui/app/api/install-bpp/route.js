@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import { join } from "path";
 import os from "os";
-import { v4 as uuidv4 } from "uuid";
 
 const pathDir = join(os.homedir(), "beckn-onix");
 async function directoryExists(path) {
@@ -95,15 +94,10 @@ export async function POST(req, res) {
     const bppSubscriberId = data.subscriberId;
     const bppSubscriberUrl = data.subscriberUrl;
     const webhookUrl = data.webhookUrl;
-    const uuid = uuidv4({ length: 8 });
-    // const webhookUrl = "https://unified-bpp.becknprotocol.io/beckn-bpp-adapter";
-
-    // let updateBppConfigCommand = "bash scripts/update_bpp_config.sh";
-    // if (registryUrl) {
-    //   updateBppConfigCommand += ``;
-    // }
-
-    let updateBppConfigCommand = `bash ${pathDir}/install/scripts/update_bpp_config.sh  ${registryUrl} ${bppSubscriberId} ${uuid} ${bppSubscriberUrl} ${webhookUrl}`;
+    // generating unqiuekey for bpp subscriberId
+    const uniqueKeyId = bppSubscriberId + "-key";
+    let updateBppConfigCommand = `bash ${pathDir}/install/scripts/update_bpp_config.sh  ${registryUrl} ${bppSubscriberId} ${uniqueKeyId} ${bppSubscriberUrl} ${webhookUrl}`;
+    console.log("Update BPP Config Command:", updateBppConfigCommand);
     const result1 = await executeCommand(updateBppConfigCommand);
     console.log("Result 1:", result1);
 

@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import { join } from "path";
 import os from "os";
-import { v4 as uuidv4 } from "uuid";
 
 const pathDir = join(os.homedir(), "beckn-onix");
 
@@ -92,12 +91,14 @@ export async function POST(req) {
     const data = await req.json();
 
     const registryUrl = data.registryUrl;
-    const bppSubscriberId = data.subscriberId;
-    const bppSubscriberUrl = data.subscriberUrl;
+    const bapSubscriberId = data.subscriberId;
+    const bapSubscriberUrl = data.subscriberUrl;
     const networkconfigurl = data.networkconfigurl;
-    const uuid = uuidv4({ length: 8 });
-    let updateBppConfigCommand = `bash ${pathDir}/install/scripts/update_bap_config.sh  ${registryUrl} ${bppSubscriberId} ${uuid}  ${bppSubscriberUrl} ${networkconfigurl}`;
-    const result1 = await executeCommand(updateBppConfigCommand);
+    // generating unqiuekey for bap subscriberId
+    const uniqueKeyId = bapSubscriberId + "-key";
+
+    let updateBapConfigCommand = `bash ${pathDir}/install/scripts/update_bap_config.sh  ${registryUrl} ${bapSubscriberId} ${uniqueKeyId}  ${bapSubscriberUrl} ${networkconfigurl}`;
+    const result1 = await executeCommand(updateBapConfigCommand);
     console.log("Result 1:", result1);
     const result3 = await executeCommand(
       `docker-compose -f ${pathDir}/install/docker-compose-v2.yml up -d  "bap-client"`
