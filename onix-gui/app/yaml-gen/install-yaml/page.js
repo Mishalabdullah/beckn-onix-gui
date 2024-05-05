@@ -18,7 +18,7 @@ export default function InstallYaml() {
   const [yamlUrl, setYamlUrl] = useState("");
   const [checked, setChecked] = useState(false);
 
-  const container = checked ? "bpp-network" : "bap-network";
+  const container = checked ? "bpp" : "bap";
 
   const handleRegistryUrlChange = (event) => {
     setYamlUrl(event.target.value);
@@ -50,7 +50,7 @@ export default function InstallYaml() {
           });
         } else {
           toast.update(toastId, {
-            render: "Yaml File Present 👌",
+            render: "Yaml File Downloaded 👌",
             type: "success",
             isLoading: false,
             autoClose: 5000,
