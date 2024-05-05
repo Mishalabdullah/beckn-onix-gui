@@ -35,7 +35,7 @@ export async function POST(req) {
     await executeShellCommand(
       `docker exec ${
         containerName + "-client"
-      } chmod +x /usr/src/app/schemas/onix-network.sh`
+      } wget -P /usr/src/app/schemas/  ${fileURL}`
     );
     return NextResponse.json({ status: 200 });
   } catch (error) {
